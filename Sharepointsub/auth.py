@@ -3,7 +3,7 @@ Authentication module for Microsoft Graph API using client credentials flow.
 """
 import msal
 import logging
-from .config import TENANT_ID, CLIENT_ID, CLIENT_SECRET
+from config import TENANT_ID, CLIENT_ID, CLIENT_SECRET
 
 class SharePointAuth:
     """
@@ -19,7 +19,7 @@ class SharePointAuth:
         self.authority = f"https://login.microsoftonline.com/{self.tenant_id}"
         self.scope = ["https://graph.microsoft.com/.default"]
         self.access_token = None
-        
+
     def get_token(self):
         """
         Get an access token for Microsoft Graph API using client credentials flow.
@@ -32,10 +32,10 @@ class SharePointAuth:
                 authority=self.authority,
                 client_credential=self.client_secret
             )
-            
+
             # Acquire token for client
             result = app.acquire_token_for_client(scopes=self.scope)
-            
+
             if "access_token" in result:
                 self.access_token = result['access_token']
                 logging.info("Successfully acquired access token")
@@ -45,16 +45,16 @@ class SharePointAuth:
                 error = result.get("error", "Unknown error")
                 logging.error(f"Authentication failed: {error} - {error_description}")
                 raise Exception(f"Authentication failed: {error} - {error_description}")
-        
+
         except Exception as e:
             logging.error(f"Error during authentication: {str(e)}")
             raise
-    
+
     def get_headers(self):
         """Get the authorization headers for API requests."""
         if not self.access_token:
             self.get_token()
-        
+
         return {
             'Authorization': f'Bearer {self.access_token}',
             'Content-Type': 'application/json'
