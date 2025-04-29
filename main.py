@@ -24,36 +24,98 @@ def display_menu(options):
         except ValueError:
             print("Please enter a valid number")
 
-def list_drives(client):
-    """List available drives and let user select one."""
+def list_drives(client, show_onedrive=True, show_sharepoint=True):
+    """
+    List available drives and let user select one.
+
+    Args:
+        client: The GraphClient instance
+        show_onedrive: Whether to show OneDrive drives
+        show_sharepoint: Whether to show SharePoint drives
+    """
     print("\nFetching available drives (OneDrive/SharePoint sites)...")
 
     try:
-        drives_response = client.get_drives()
+        # First try to get all drives
+        try:
+            drives_response = client.get_drives()
 
-        # Handle both single drive and multiple drives responses
-        if "value" in drives_response:
-            drives = drives_response.get("value", [])
-        else:
-            # Single drive response (typical for personal accounts)
-            drives = [drives_response]
+            # Handle both single drive and multiple drives responses
+            if "value" in drives_response:
+                all_drives = drives_response.get("value", [])
+            else:
+                # Single drive response (typical for personal accounts)
+                all_drives = [drives_response]
+        except Exception as e:
+            print(f"Error getting drives: {str(e)}")
+            all_drives = []
+
+        # If we couldn't get all drives, try to get SharePoint sites specifically
+        if not all_drives and show_sharepoint:
+            try:
+                sites_response = client._make_request("sites?search=*")
+                sites = sites_response.get("value", [])
+
+                # For each site, try to get its drives
+                for site in sites:
+                    site_id = site.get("id")
+                    try:
+                        site_drives_response = client._make_request(f"sites/{site_id}/drives")
+                        site_drives = site_drives_response.get("value", [])
+                        all_drives.extend(site_drives)
+                    except Exception:
+                        # Skip sites that we can't access
+                        pass
+            except Exception as e:
+                print(f"Error getting SharePoint sites: {str(e)}")
+
+        # Filter drives based on type
+        drives = []
+        for drive in all_drives:
+            drive_type = drive.get("driveType", "").lower()
+
+            if drive_type == "personal" and show_onedrive:
+                drives.append(drive)
+            elif drive_type in ["documentlibrary", "business"] and show_sharepoint:
+                drives.append(drive)
 
         if not drives:
-            print("No drives found. Make sure your account has access to OneDrive or SharePoint.")
+            if not show_onedrive and not show_sharepoint:
+                print("Both OneDrive and SharePoint are filtered out. Please enable at least one.")
+            elif not show_onedrive:
+                print("No SharePoint drives found. Make sure your account has access to SharePoint sites.")
+            elif not show_sharepoint:
+                print("No OneDrive drives found. Make sure your account has access to OneDrive.")
+            else:
+                print("No drives found. Make sure your account has access to OneDrive or SharePoint.")
             return None, None
 
         print("\nAvailable drives:")
         drive_options = []
 
         for drive in drives:
-            name = drive.get('name', 'Personal Drive')
-            drive_type = drive.get('driveType', 'personal')
-            drive_options.append(f"{name} ({drive_type})")
+            name = drive.get('name', 'Unnamed Drive')
+            drive_type = drive.get('driveType', 'unknown')
+            owner = ""
+
+            # Try to get owner information for better labeling
+            if "owner" in drive and "user" in drive["owner"] and "displayName" in drive["owner"]["user"]:
+                owner = f" - {drive['owner']['user']['displayName']}"
+
+            # Label the drive type more clearly
+            if drive_type.lower() == "personal":
+                type_label = "OneDrive"
+            elif drive_type.lower() in ["documentlibrary", "business"]:
+                type_label = "SharePoint"
+            else:
+                type_label = drive_type
+
+            drive_options.append(f"{name} ({type_label}{owner})")
 
         if len(drive_options) == 1:
             print(f"Found 1 drive: {drive_options[0]}")
             selected_drive = drives[0]
-            return selected_drive.get("id"), selected_drive.get("name", "Personal Drive")
+            return selected_drive.get("id"), selected_drive.get("name")
         else:
             choice = display_menu(drive_options)
             selected_drive = drives[choice - 1]
