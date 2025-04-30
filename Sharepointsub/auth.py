@@ -44,18 +44,57 @@ class SharePointAuth:
                 raise ValueError("Invalid client secret ID. Please check your .env file.")
 
             # Create the MSAL confidential client application
-            # For organizations that use client secret ID, we create a credential dictionary
-            client_credential = {
-                "client_secret": self.client_secret,
-                "client_secret_id": self.client_secret_id
-            }
-
             logging.debug("Creating MSAL application with client ID and credentials")
-            app = msal.ConfidentialClientApplication(
-                self.client_id,
-                authority=self.authority,
-                client_credential=client_credential  # Using the credential dictionary
-            )
+
+            # Try different credential formats based on what might be expected
+            try:
+                # First attempt: Use just the client secret (most common format)
+                logging.debug("Attempting authentication with client secret only")
+                app = msal.ConfidentialClientApplication(
+                    self.client_id,
+                    authority=self.authority,
+                    client_credential=self.client_secret  # Just the secret as a string
+                )
+            except Exception as e:
+                logging.debug(f"First authentication attempt failed: {str(e)}")
+
+                try:
+                    # Second attempt: Use the secret ID as the secret
+                    logging.debug("Attempting authentication with client secret ID as the secret")
+                    app = msal.ConfidentialClientApplication(
+                        self.client_id,
+                        authority=self.authority,
+                        client_credential=self.client_secret_id  # Using the secret ID as the secret
+                    )
+                except Exception as e:
+                    logging.debug(f"Second authentication attempt failed: {str(e)}")
+
+                    try:
+                        # Third attempt: Use a dictionary with the expected format
+                        logging.debug("Attempting authentication with credential dictionary")
+                        client_credential = {
+                            "secret": self.client_secret,
+                            "secret_id": self.client_secret_id
+                        }
+                        app = msal.ConfidentialClientApplication(
+                            self.client_id,
+                            authority=self.authority,
+                            client_credential=client_credential
+                        )
+                    except Exception as e:
+                        logging.debug(f"Third authentication attempt failed: {str(e)}")
+
+                        # Final attempt: Try another dictionary format
+                        logging.debug("Attempting authentication with alternative credential format")
+                        client_credential = {
+                            "clientSecret": self.client_secret,
+                            "clientSecretId": self.client_secret_id
+                        }
+                        app = msal.ConfidentialClientApplication(
+                            self.client_id,
+                            authority=self.authority,
+                            client_credential=client_credential
+                        )
 
             # Acquire token for client
             logging.debug("Requesting access token...")
