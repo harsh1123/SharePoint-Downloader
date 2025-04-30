@@ -59,6 +59,7 @@ A Python application that connects to Microsoft SharePoint via Microsoft Graph A
    SHAREPOINT_TENANT_ID=your_tenant_id
    SHAREPOINT_CLIENT_ID=your_client_id
    SHAREPOINT_CLIENT_SECRET=your_client_secret
+   SHAREPOINT_CLIENT_SECRET_ID=your_client_secret_id
    SHAREPOINT_SITE_URL=your_sharepoint_site_url
    ```
 

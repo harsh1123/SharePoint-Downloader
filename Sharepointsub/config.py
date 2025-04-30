@@ -24,6 +24,7 @@ GRAPH_BASE_URL = "https://graph.microsoft.com/v1.0"
 TENANT_ID = os.environ.get("SHAREPOINT_TENANT_ID", "your_tenant_id")
 CLIENT_ID = os.environ.get("SHAREPOINT_CLIENT_ID", "your_client_id")
 CLIENT_SECRET = os.environ.get("SHAREPOINT_CLIENT_SECRET", "your_client_secret")
+CLIENT_SECRET_ID = os.environ.get("SHAREPOINT_CLIENT_SECRET_ID", "your_client_secret_id")
 SITE_URL = os.environ.get("SHAREPOINT_SITE_URL", "your_sharepoint_site_url")
 
 # Sync settings
