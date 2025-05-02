@@ -126,15 +126,29 @@ class SyncManager:
 
             # Check if we only want root files and this item is in a folder
             if self.root_only:
+                # Log the item details for debugging
+                item_type = "Folder" if 'folder' in item else "File"
+                logging.debug(f"Checking root-only for {item_type}: {name}")
+                logging.debug(f"Parent path: '{parent_path}'")
+                logging.debug(f"Full path: '{full_path}'")
+
+                # Check if the item is in the root
                 if parent_path:  # If parent_path is not empty, the item is not in the root
                     logging.debug(f"Skipping non-root item: {full_path}")
                     return
-                logging.debug(f"Processing root item: {name}")
+
+                logging.info(f"Found root item: {name} ({item_type})")
 
                 # Skip folders if we only want root files
                 if 'folder' in item:
                     logging.debug(f"Skipping folder in root-only mode: {name}")
                     return
+
+                # Log the item details for debugging
+                size_bytes = item.get('size', 0)
+                size_mb = size_bytes / (1024 * 1024)
+                size_display = f"{size_mb:.2f} MB" if size_bytes > 0 else "unknown size"
+                logging.info(f"Root file details: {name} ({size_display})")
 
             # Check if we've reached the maximum number of files in test mode
             if self.test_mode and self.max_files is not None and self.files_processed >= self.max_files:
@@ -238,6 +252,88 @@ class SyncManager:
         except Exception as e:
             logging.error(f"Error handling deletion for item ID {item.get('id', 'unknown')}: {str(e)}")
 
+    def list_root_files(self):
+        """
+        List all files in the root of OneDrive.
+        This is useful for debugging root-only mode.
+        """
+        try:
+            logging.info("Listing all files in the root of OneDrive...")
+
+            # Get items in the root folder
+            response = self.client._make_request("me/drive/root/children")
+            items = response.get('value', [])
+
+            # Count files and folders
+            root_files = [item for item in items if 'file' in item]
+            root_folders = [item for item in items if 'folder' in item]
+
+            logging.info(f"Found {len(root_files)} files and {len(root_folders)} folders in the root")
+
+            # List all files in the root
+            if root_files:
+                logging.info("Files in the root:")
+                for i, file in enumerate(root_files):
+                    name = file.get('name', 'unknown')
+                    size_bytes = file.get('size', 0)
+                    size_mb = size_bytes / (1024 * 1024)
+                    size_display = f"{size_mb:.2f} MB" if size_bytes > 0 else "unknown size"
+                    logging.info(f"  {i+1}. {name} ({size_display})")
+            else:
+                logging.info("No files found in the root")
+
+            return root_files
+        except Exception as e:
+            logging.error(f"Error listing root files: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
+            return []
+
+    def download_root_files_directly(self):
+        """
+        Download files directly from the root of OneDrive.
+        This is a fallback method if delta sync doesn't find any root files.
+        """
+        try:
+            logging.info("Downloading files directly from the root of OneDrive...")
+
+            # Get all files in the root
+            root_files = self.list_root_files()
+
+            if not root_files:
+                logging.info("No root files found to download")
+                return
+
+            # Download each file
+            files_downloaded = 0
+            for file in root_files:
+                # Skip if we've reached the maximum number of files in test mode
+                if self.test_mode and self.max_files is not None and files_downloaded >= self.max_files:
+                    logging.info(f"Reached maximum number of files ({self.max_files})")
+                    break
+
+                name = file.get('name', 'unknown')
+                size_bytes = file.get('size', 0)
+                size_mb = size_bytes / (1024 * 1024)
+                size_display = f"{size_mb:.2f} MB" if size_bytes > 0 else "unknown size"
+
+                # In check-only mode, just log what would be downloaded
+                if self.check_only:
+                    logging.info(f"Would download root file: {name} ({size_display})")
+                    continue
+
+                # Download the file
+                logging.info(f"Downloading root file: {name} ({size_display})")
+                self.client.download_file(file)
+                files_downloaded += 1
+                self.files_processed += 1
+
+            logging.info(f"Direct download completed. Downloaded {files_downloaded} root files.")
+
+        except Exception as e:
+            logging.error(f"Error downloading root files directly: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
+            return
+
     def perform_sync(self):
         """
         Perform a delta sync with OneDrive.
@@ -256,6 +352,8 @@ class SyncManager:
                     logging.info(f"Targeting folder: {self.target_folder}")
             elif self.root_only:
                 logging.info("Starting sync process in ROOT-ONLY mode (only files not in any folder)...")
+                # List root files for debugging
+                self.list_root_files()
             else:
                 logging.info("Starting sync process...")
 
@@ -295,6 +393,11 @@ class SyncManager:
             elif self.root_only:
                 logging.info(f"Sync completed successfully in ROOT-ONLY mode")
                 logging.info(f"Downloaded {self.files_processed} files from the root directory")
+
+                # If no files were downloaded and this is the first sync, try direct download
+                if self.files_processed == 0 and not self.delta_link:
+                    logging.info("No root files found via delta sync. Trying direct download...")
+                    self.download_root_files_directly()
             else:
                 logging.info("Sync completed successfully")
                 logging.info(f"Downloaded {self.files_processed} files")

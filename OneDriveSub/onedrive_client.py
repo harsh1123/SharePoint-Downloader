@@ -177,13 +177,22 @@ class OneDriveClient:
         try:
             parent_reference = item.get('parentReference', {})
             path = parent_reference.get('path', '')
+            name = item.get('name', 'unknown')
+
+            # Log the raw path for debugging
+            logging.debug(f"Raw parent path for '{name}': {path}")
 
             # The path is usually in the format "/drive/root:/path/to/parent"
             if ':' in path:
                 path = path.split(':')[-1]
+                logging.debug(f"After splitting at colon: {path}")
 
             # Remove leading slash
             path = path.lstrip('/')
+
+            # Log whether this is a root item
+            is_root = (path == '')
+            logging.debug(f"Item '{name}' is {'in root' if is_root else 'not in root'} (path: '{path}')")
 
             return path
 
