@@ -133,12 +133,36 @@ Show debug information:
 python run.py --debug
 ```
 
-### Troubleshooting
+### Troubleshooting Options
 
 Run the troubleshooting script to diagnose issues:
 
 ```bash
 python troubleshoot.py
+```
+
+Show the current sync state:
+
+```bash
+python run.py --show-state
+```
+
+Force a full sync (ignore existing delta link):
+
+```bash
+python run.py --force-full-sync
+```
+
+Force saving the state file after sync:
+
+```bash
+python run.py --force-save-state
+```
+
+Create a test state file (for debugging):
+
+```bash
+python run.py --create-test-state
 ```
 
 ## Configuration

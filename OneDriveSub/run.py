@@ -74,6 +74,7 @@ def main():
     parser.add_argument('--create-test-state', action='store_true', help='Create a test state file (for debugging)')
     parser.add_argument('--force-full-sync', action='store_true', help='Force a full sync by ignoring the existing delta link')
     parser.add_argument('--show-state', action='store_true', help='Show the current sync state and exit')
+    parser.add_argument('--force-save-state', action='store_true', help='Force saving the state file after sync')
     args = parser.parse_args()
 
     # Set up logging
@@ -92,7 +93,8 @@ def main():
             'max_files': args.max_files if args.test else None,
             'target_folder': args.folder,
             'root_only': args.root_only,
-            'force_full_sync': args.force_full_sync
+            'force_full_sync': args.force_full_sync,
+            'force_save_state': args.force_save_state
         }
 
         # Log the sync options

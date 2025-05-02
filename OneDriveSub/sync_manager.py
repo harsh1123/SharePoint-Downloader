@@ -16,7 +16,7 @@ class SyncManager:
     Implements delta sync to efficiently track and download only changed files.
     """
     def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None,
-                 root_only=False, force_full_sync=False):
+                 root_only=False, force_full_sync=False, force_save_state=False):
         """
         Initialize the sync manager.
 
@@ -27,6 +27,7 @@ class SyncManager:
             target_folder (str): Specific folder to sync
             root_only (bool): If True, only download files in the root (not in any folder)
             force_full_sync (bool): If True, ignore existing delta link and perform full sync
+            force_save_state (bool): If True, force saving the state file after sync
         """
         self.client = OneDriveClient()
         self.state_file = STATE_FILE
@@ -40,11 +41,13 @@ class SyncManager:
         self.target_folder = target_folder
         self.root_only = root_only
         self.force_full_sync = force_full_sync
+        self.force_save_state = force_save_state
         self.files_processed = 0
 
         logging.debug(f"SyncManager initialized with options: check_only={check_only}, "
                      f"test_mode={test_mode}, max_files={max_files}, target_folder={target_folder}, "
-                     f"root_only={root_only}, force_full_sync={force_full_sync}")
+                     f"root_only={root_only}, force_full_sync={force_full_sync}, "
+                     f"force_save_state={force_save_state}")
 
         self.load_state()
 
@@ -505,9 +508,18 @@ class SyncManager:
                 # Delta link was already set earlier, just save the state
                 self.save_state()
             else:
-                logging.warning("No delta link found in response. State will not be saved.")
+                logging.warning("No delta link found in response.")
                 # Log the response keys for debugging
                 logging.debug(f"Response keys: {list(delta_response.keys())}")
+
+                # If force_save_state is enabled, save the state anyway
+                if self.force_save_state:
+                    logging.info("Force save state enabled. Creating a dummy delta link and saving state...")
+                    # Create a dummy delta link
+                    self.delta_link = f"https://graph.microsoft.com/v1.0/me/drive/root/delta?token=dummy_{int(time.time())}"
+                    self.save_state()
+                else:
+                    logging.warning("State will not be saved. Use --force-save-state to override this.")
 
             # Log summary
             if self.check_only:
