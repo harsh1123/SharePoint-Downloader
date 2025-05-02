@@ -12,6 +12,12 @@ PARENT_DIR = BASE_DIR.parent
 DOWNLOAD_PATH = os.path.join(BASE_DIR, "downloads")
 STATE_FILE = os.path.join(BASE_DIR, "sync_state.json")
 LOG_FILE = os.path.join(BASE_DIR, "sync.log")
+DEBUG_LOG_FILE = os.path.join(BASE_DIR, "debug.log")
+
+# Logging settings
+LOG_LEVEL = "DEBUG"  # Options: DEBUG, INFO, WARNING, ERROR, CRITICAL
+LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+LOG_DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 # Create downloads directory if it doesn't exist
 os.makedirs(DOWNLOAD_PATH, exist_ok=True)
