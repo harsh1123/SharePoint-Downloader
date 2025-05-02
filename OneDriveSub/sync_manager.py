@@ -198,9 +198,8 @@ class SyncManager:
 
             # Check if delta_link exists
             if not self.delta_link:
-                logging.warning("No delta link to save. Creating a dummy delta link.")
-                self.delta_link = f"https://graph.microsoft.com/v1.0/me/drive/root/delta?token=dummy_{int(time.time())}"
-                logging.debug(f"Created dummy delta link: {self.delta_link}")
+                logging.warning("No delta link to save. State file will not be created.")
+                return
 
             # Create state object
             state = {
@@ -575,15 +574,18 @@ class SyncManager:
                 logging.info("Received new delta link from OneDrive")
                 logging.debug(f"New delta link: {new_delta_link}")
                 self.delta_link = new_delta_link
+
+                # Save the state immediately after getting a valid delta link
+                self.save_state()
+                logging.info("State saved with new delta link")
             else:
                 logging.warning("No delta link received in response")
                 logging.debug(f"Response keys: {list(delta_response.keys())}")
 
-                # Try to create a delta link for next time
+                # Don't create dummy delta links anymore - they don't work with Microsoft's API
                 if self.force_save_state:
-                    logging.info("Force save state enabled. Will create a dummy delta link.")
-                    self.delta_link = f"https://graph.microsoft.com/v1.0/me/drive/root/delta?token=dummy_{int(time.time())}"
-                    logging.debug(f"Created dummy delta link: {self.delta_link}")
+                    logging.info("Force save state enabled, but not creating a dummy delta link as it won't work.")
+                    logging.info("Will perform a full sync on next run.")
 
             # Process each changed item
             items = delta_response.get('value', [])
@@ -614,14 +616,12 @@ class SyncManager:
                 # Log the response keys for debugging
                 logging.debug(f"Response keys: {list(delta_response.keys())}")
 
-                # If force_save_state is enabled, save the state anyway
+                # Don't create dummy delta links anymore - they don't work with Microsoft's API
                 if self.force_save_state:
-                    logging.info("Force save state enabled. Creating a dummy delta link and saving state...")
-                    # Create a dummy delta link
-                    self.delta_link = f"https://graph.microsoft.com/v1.0/me/drive/root/delta?token=dummy_{int(time.time())}"
-                    self.save_state()
+                    logging.info("Force save state enabled, but not creating a dummy delta link as it won't work.")
+                    logging.info("Will perform a full sync on next run.")
                 else:
-                    logging.warning("State will not be saved. Use --force-save-state to override this.")
+                    logging.warning("State will not be saved. Will perform a full sync on next run.")
 
             # Log summary
             if self.check_only:

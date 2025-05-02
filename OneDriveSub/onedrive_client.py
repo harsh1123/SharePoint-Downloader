@@ -177,6 +177,11 @@ class OneDriveClient:
                 # Check for delta link in final response
                 if '@odata.deltaLink' in final_response:
                     logging.info("Delta link found in final response")
+                    # Return the delta link immediately so it can be saved
+                    return {
+                        'value': all_items,
+                        '@odata.deltaLink': final_response['@odata.deltaLink']
+                    }
                 else:
                     logging.warning("No delta link found in final response. This may cause issues with incremental sync.")
                     logging.debug(f"Final response keys: {list(final_response.keys())}")
