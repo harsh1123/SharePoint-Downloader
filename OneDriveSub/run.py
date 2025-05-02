@@ -67,6 +67,9 @@ def main():
     parser.add_argument('--check-only', action='store_true', help='Check for changes but don\'t download')
     parser.add_argument('--verbose', action='store_true', help='Show verbose output')
     parser.add_argument('--debug', action='store_true', help='Show debug information')
+    parser.add_argument('--test', action='store_true', help='Run in test mode (limited files)')
+    parser.add_argument('--max-files', type=int, default=10, help='Maximum number of files to download in test mode')
+    parser.add_argument('--folder', type=str, help='Specific folder to sync (e.g., "Documents")')
     args = parser.parse_args()
 
     # Set up logging
@@ -77,12 +80,28 @@ def main():
 
     try:
         logging.info("Initializing sync manager...")
-        sync_manager = SyncManager()
+
+        # Configure sync options based on command line arguments
+        sync_options = {
+            'check_only': args.check_only,
+            'test_mode': args.test,
+            'max_files': args.max_files if args.test else None,
+            'target_folder': args.folder
+        }
+
+        # Log the sync options
+        logging.info(f"Sync options: {sync_options}")
+
+        # Initialize the sync manager with options
+        sync_manager = SyncManager(**sync_options)
 
         if args.check_only:
             logging.info("Running in check-only mode (no downloads)")
-            # TODO: Implement check-only mode
-            logging.warning("Check-only mode not fully implemented yet")
+
+        if args.test:
+            logging.info(f"Running in test mode (max {args.max_files} files)")
+            if args.folder:
+                logging.info(f"Targeting specific folder: {args.folder}")
 
         if args.continuous:
             logging.info("Starting continuous sync mode")

@@ -5,6 +5,7 @@ import os
 import json
 import logging
 import time
+import traceback
 from datetime import datetime
 from onedrive_client import OneDriveClient
 from config import STATE_FILE, FILE_TYPES_TO_EXCLUDE, PATHS_TO_EXCLUDE, SYNC_INTERVAL_MINUTES
@@ -14,12 +15,31 @@ class SyncManager:
     Manages the synchronization process between OneDrive and local files.
     Implements delta sync to efficiently track and download only changed files.
     """
-    def __init__(self):
-        """Initialize the sync manager."""
+    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None):
+        """
+        Initialize the sync manager.
+
+        Args:
+            check_only (bool): If True, only check for changes without downloading
+            test_mode (bool): If True, run in test mode with limited files
+            max_files (int): Maximum number of files to download in test mode
+            target_folder (str): Specific folder to sync
+        """
         self.client = OneDriveClient()
         self.state_file = STATE_FILE
         self.delta_link = None
         self.last_sync = None
+
+        # Sync options
+        self.check_only = check_only
+        self.test_mode = test_mode
+        self.max_files = max_files if test_mode else None
+        self.target_folder = target_folder
+        self.files_processed = 0
+
+        logging.debug(f"SyncManager initialized with options: check_only={check_only}, "
+                     f"test_mode={test_mode}, max_files={max_files}, target_folder={target_folder}")
+
         self.load_state()
 
     def load_state(self):
@@ -89,7 +109,22 @@ class SyncManager:
                 return
 
             name = item.get('name', '')
-            item_id = item.get('id')
+            parent_path = self.client._get_parent_path(item)
+            full_path = os.path.join(parent_path, name) if parent_path else name
+
+            # Check if we're targeting a specific folder and this item is not in that folder
+            if self.target_folder and not (
+                full_path.startswith(self.target_folder) or
+                parent_path.startswith(self.target_folder) or
+                name == self.target_folder
+            ):
+                logging.debug(f"Skipping item not in target folder: {full_path}")
+                return
+
+            # Check if we've reached the maximum number of files in test mode
+            if self.test_mode and self.max_files is not None and self.files_processed >= self.max_files:
+                logging.debug(f"Skipping item due to max files limit: {name}")
+                return
 
             # Handle folder
             if 'folder' in item:
@@ -97,6 +132,10 @@ class SyncManager:
             # Handle file
             elif 'file' in item:
                 self.handle_file(item)
+                # Increment the files processed counter if we're in test mode
+                if self.test_mode:
+                    self.files_processed += 1
+                    logging.info(f"Processed {self.files_processed}/{self.max_files} files in test mode")
             else:
                 logging.warning(f"Unknown item type: {name}")
 
@@ -128,6 +167,11 @@ class SyncManager:
             parent_path = self.client._get_parent_path(item)
             file_path = os.path.join(self.client.download_path, parent_path, name)
 
+            # Get file size for logging
+            size_bytes = item.get('size', 0)
+            size_mb = size_bytes / (1024 * 1024)
+            size_display = f"{size_mb:.2f} MB" if size_bytes > 0 else "unknown size"
+
             # Check if file exists and compare modification times
             if os.path.exists(file_path):
                 local_mtime = datetime.fromtimestamp(os.path.getmtime(file_path))
@@ -141,8 +185,18 @@ class SyncManager:
                         logging.info(f"Skipping file (local copy is up-to-date): {name}")
                         return
 
-            # Download the file
-            logging.info(f"Downloading file: {name}")
+            # In check-only mode, just log what would be downloaded
+            if self.check_only:
+                logging.info(f"Would download: {name} ({size_display})")
+                return
+
+            # In test mode, provide more detailed logging
+            if self.test_mode:
+                logging.info(f"Test mode - downloading file {self.files_processed+1}/{self.max_files}: {name} ({size_display})")
+            else:
+                logging.info(f"Downloading file: {name} ({size_display})")
+
+            # Download the file (unless in check-only mode)
             self.client.download_file(item)
 
         except Exception as e:
@@ -174,16 +228,39 @@ class SyncManager:
         Perform a delta sync with OneDrive.
         """
         try:
-            logging.info("Starting sync process...")
+            # Reset counters
+            self.files_processed = 0
+            files_would_download = 0
+
+            # Log sync mode
+            if self.check_only:
+                logging.info("Starting sync process in CHECK-ONLY mode (no downloads)...")
+            elif self.test_mode:
+                logging.info(f"Starting sync process in TEST mode (max {self.max_files} files)...")
+                if self.target_folder:
+                    logging.info(f"Targeting folder: {self.target_folder}")
+            else:
+                logging.info("Starting sync process...")
 
             # Get changes since last sync
             delta_response = self.client.get_delta(self.delta_link)
 
             # Process each changed item
             items = delta_response.get('value', [])
-            logging.info(f"Found {len(items)} changed items")
+            total_items = len(items)
+            logging.info(f"Found {total_items} changed items")
 
-            for item in items:
+            # Count files and folders for reporting
+            files_count = sum(1 for item in items if 'file' in item)
+            folders_count = sum(1 for item in items if 'folder' in item)
+            deleted_count = sum(1 for item in items if 'deleted' in item)
+
+            logging.info(f"Changes include: {files_count} files, {folders_count} folders, {deleted_count} deletions")
+
+            # Process items
+            for i, item in enumerate(items):
+                if i % 10 == 0:  # Log progress every 10 items
+                    logging.info(f"Processing item {i+1}/{total_items}...")
                 self.process_item(item)
 
             # Save the delta link for next sync
@@ -191,11 +268,22 @@ class SyncManager:
                 self.delta_link = delta_response['@odata.deltaLink']
                 self.save_state()
 
-            logging.info("Sync completed successfully")
+            # Log summary
+            if self.check_only:
+                logging.info(f"Sync completed successfully in CHECK-ONLY mode")
+                logging.info(f"Would have downloaded {files_would_download} files")
+            elif self.test_mode:
+                logging.info(f"Sync completed successfully in TEST mode")
+                logging.info(f"Downloaded {self.files_processed}/{self.max_files} files")
+            else:
+                logging.info("Sync completed successfully")
+                logging.info(f"Downloaded {self.files_processed} files")
+
             return True
 
         except Exception as e:
             logging.error(f"Error during sync: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
             return False
 
     def run_continuous_sync(self):
