@@ -6,8 +6,8 @@ import os
 import json
 import logging
 from urllib.parse import urlparse
-from .auth import OneDriveAuth
-from .config import GRAPH_BASE_URL, DOWNLOAD_PATH
+from auth import OneDriveAuth
+from config import GRAPH_BASE_URL, DOWNLOAD_PATH
 
 class OneDriveClient:
     """
@@ -20,12 +20,12 @@ class OneDriveClient:
         self.base_url = GRAPH_BASE_URL
         self.download_path = DOWNLOAD_PATH
         self.drive_id = None
-    
+
     def _make_request(self, endpoint, method="GET", params=None, data=None, stream=False):
         """Make a request to the Microsoft Graph API."""
         url = f"{self.base_url}/{endpoint}"
         headers = self.auth.get_headers()
-        
+
         try:
             response = requests.request(
                 method=method,
@@ -35,7 +35,7 @@ class OneDriveClient:
                 json=data,
                 stream=stream
             )
-            
+
             # Handle token expiration
             if response.status_code == 401:
                 # Token expired, get a new one
@@ -49,18 +49,18 @@ class OneDriveClient:
                     json=data,
                     stream=stream
                 )
-            
+
             # Raise exception for other errors
             response.raise_for_status()
-            
+
             if method == "GET" and not stream and response.content:
                 return response.json()
             return response
-        
+
         except requests.exceptions.RequestException as e:
             logging.error(f"API request failed: {str(e)}")
             raise
-    
+
     def get_drive(self):
         """
         Get the user's OneDrive.
@@ -69,27 +69,27 @@ class OneDriveClient:
             # For personal accounts, we use /me/drive
             response = self._make_request("me/drive")
             self.drive_id = response.get('id')
-            
+
             if not self.drive_id:
                 raise Exception("Could not get OneDrive ID")
-            
+
             logging.info(f"Retrieved OneDrive ID: {self.drive_id}")
             return response
-        
+
         except Exception as e:
             logging.error(f"Error getting OneDrive: {str(e)}")
             raise
-    
+
     def get_drive_id(self):
         """
         Get the user's OneDrive ID.
         """
         if self.drive_id:
             return self.drive_id
-        
+
         drive = self.get_drive()
         return self.drive_id
-    
+
     def get_delta(self, delta_link=None):
         """
         Get changes since the last sync using delta query.
@@ -97,36 +97,36 @@ class OneDriveClient:
         """
         try:
             drive_id = self.get_drive_id()
-            
+
             if delta_link:
                 endpoint = delta_link.replace(self.base_url + '/', '')
             else:
                 endpoint = f"me/drive/root/delta"
-            
+
             return self._make_request(endpoint)
-        
+
         except Exception as e:
             logging.error(f"Error getting delta changes: {str(e)}")
             raise
-    
+
     def get_items(self, item_id="root"):
         """
         Get items in a folder.
         """
         try:
             drive_id = self.get_drive_id()
-            
+
             if item_id == "root":
                 endpoint = f"me/drive/root/children"
             else:
                 endpoint = f"me/drive/items/{item_id}/children"
-            
+
             return self._make_request(endpoint)
-        
+
         except Exception as e:
             logging.error(f"Error getting items: {str(e)}")
             raise
-    
+
     def download_file(self, item):
         """
         Download a file from OneDrive.
@@ -136,40 +136,40 @@ class OneDriveClient:
             download_url = item.get('@microsoft.graph.downloadUrl')
             if not download_url:
                 file_id = item.get('id')
-                
+
                 # Get file metadata to get the download URL
                 file_metadata = self._make_request(f"me/drive/items/{file_id}")
                 download_url = file_metadata.get('@microsoft.graph.downloadUrl')
-                
+
                 if not download_url:
                     raise Exception(f"Could not get download URL for file: {item.get('name')}")
-            
+
             # Get the relative path of the file
             parent_path = self._get_parent_path(item)
             file_name = item.get('name')
-            
+
             # Create local directory structure if it doesn't exist
             local_dir = os.path.join(self.download_path, parent_path)
             os.makedirs(local_dir, exist_ok=True)
-            
+
             # Download the file
             local_file_path = os.path.join(local_dir, file_name)
-            
+
             # Stream download
             response = requests.get(download_url, stream=True)
             response.raise_for_status()
-            
+
             with open(local_file_path, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
                     f.write(chunk)
-            
+
             logging.info(f"Downloaded: {local_file_path}")
             return local_file_path
-        
+
         except Exception as e:
             logging.error(f"Error downloading file {item.get('name')}: {str(e)}")
             raise
-    
+
     def _get_parent_path(self, item):
         """
         Get the parent path of an item.
@@ -177,16 +177,16 @@ class OneDriveClient:
         try:
             parent_reference = item.get('parentReference', {})
             path = parent_reference.get('path', '')
-            
+
             # The path is usually in the format "/drive/root:/path/to/parent"
             if ':' in path:
                 path = path.split(':')[-1]
-            
+
             # Remove leading slash
             path = path.lstrip('/')
-            
+
             return path
-        
+
         except Exception as e:
             logging.error(f"Error getting parent path: {str(e)}")
             return ""
