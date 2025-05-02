@@ -1,12 +1,12 @@
 # OneDrive Sync Tool for Individual Users
 
-A Python application that connects to Microsoft OneDrive via Microsoft Graph API and downloads files locally, implementing delta sync for efficient synchronization.
+A Python application that connects to Microsoft OneDrive via Microsoft Graph API and downloads files locally, implementing manual state tracking for efficient synchronization.
 
 ## Features
 
 - Works with personal Microsoft accounts (Outlook.com, Hotmail.com, etc.)
 - Interactive authentication with token caching
-- Delta sync to efficiently download only changed files
+- Manual state tracking to efficiently download only changed files
 - Multiple sync modes (full, test, root-only, folder-specific)
 - Continuous or one-time sync options
 - Comprehensive logging and troubleshooting
@@ -100,6 +100,24 @@ Check what would be downloaded without actually downloading:
 python run.py --check-only
 ```
 
+### Additional Options
+
+#### Force Full Sync
+
+Force a full sync by ignoring the existing state file:
+
+```bash
+python run.py --force-full-sync
+```
+
+#### Force Save State
+
+Force saving the state file after sync:
+
+```bash
+python run.py --force-save-state
+```
+
 ### Combining Options
 
 You can combine multiple options for more specific syncing:
@@ -113,6 +131,9 @@ python run.py --root-only --check-only
 
 # Continuously sync only the Documents folder
 python run.py --folder "Documents" --continuous
+
+# Force a full sync of root files only
+python run.py --root-only --force-full-sync
 ```
 
 ### Logging Options
@@ -164,7 +185,7 @@ The tool generates several log files:
 ### State Files
 
 - `.token_cache`: Stores authentication tokens (delete to force re-authentication)
-- `sync_state.json`: Stores the delta link and last sync time
+- `onedrive_sync_state.json`: Stores file metadata and last sync time (located in your user home directory)
 
 ## How It Works
 
@@ -178,18 +199,19 @@ The tool generates several log files:
 ### Synchronization
 
 - Uses Microsoft Graph API to access OneDrive files
-- Implements delta sync to efficiently track changes
+- Implements manual state tracking to efficiently track changes
 - Only downloads new or modified files
 - Preserves folder structure locally
 - Supports selective syncing (root-only, folder-specific, etc.)
 
-### Delta Sync
+### Manual State Tracking
 
-Delta sync is a key feature that makes this tool efficient:
+Manual state tracking is a key feature that makes this tool efficient:
 1. On first run, it downloads all files (based on your selected options)
-2. It saves a "delta link" provided by Microsoft Graph API
-3. On subsequent runs, it uses this link to get only changes since the last sync
-4. This significantly reduces bandwidth usage and sync time
+2. It saves metadata about each file (ID, name, path, modification time, size)
+3. On subsequent runs, it compares the current state with the saved state
+4. It only downloads files that are new or have changed
+5. This significantly reduces bandwidth usage and sync time
 
 ## Troubleshooting
 
@@ -199,6 +221,8 @@ Delta sync is a key feature that makes this tool efficient:
 - **Files Not Downloading**: Check the sync.log file for error messages
 - **Sync Seems Slow**: The first sync downloads all files and can take time
 - **Permission Errors**: Make sure you grant all requested permissions during authentication
+- **State File Issues**: Use `delete_state.py` to remove the state file and force a full sync
+- **No Changes Detected**: Use `--force-full-sync` to ignore the existing state file
 
 ### Using the Troubleshooting Script
 

@@ -7,7 +7,7 @@ import logging
 import argparse
 import traceback
 from datetime import datetime
-from sync_manager import SyncManager
+from manual_sync_manager import ManualSyncManager
 from config import LOG_FILE, DEBUG_LOG_FILE, LOG_LEVEL, LOG_FORMAT, LOG_DATE_FORMAT
 
 def setup_logging():
@@ -71,6 +71,8 @@ def main():
     parser.add_argument('--max-files', type=int, default=10, help='Maximum number of files to download in test mode')
     parser.add_argument('--folder', type=str, help='Specific folder to sync (e.g., "Documents")')
     parser.add_argument('--root-only', action='store_true', help='Download only files in the root (not in any folder)')
+    parser.add_argument('--force-full-sync', action='store_true', help='Force a full sync by ignoring the existing state file')
+    parser.add_argument('--force-save-state', action='store_true', help='Force saving the state file after sync')
     args = parser.parse_args()
 
     # Set up logging
@@ -88,14 +90,16 @@ def main():
             'test_mode': args.test,
             'max_files': args.max_files if args.test else None,
             'target_folder': args.folder,
-            'root_only': args.root_only
+            'root_only': args.root_only,
+            'force_full_sync': args.force_full_sync,
+            'force_save_state': args.force_save_state
         }
 
         # Log the sync options
         logging.info(f"Sync options: {sync_options}")
 
         # Initialize the sync manager with options
-        sync_manager = SyncManager(**sync_options)
+        sync_manager = ManualSyncManager(**sync_options)
 
         if args.check_only:
             logging.info("Running in check-only mode (no downloads)")
@@ -107,6 +111,12 @@ def main():
 
         if args.root_only:
             logging.info("Running in root-only mode (only files not in any folder)")
+
+        if args.force_full_sync:
+            logging.info("Forcing full sync by ignoring existing state file")
+
+        if args.force_save_state:
+            logging.info("Forcing state file to be saved after sync")
 
         if args.continuous:
             logging.info("Starting continuous sync mode")
