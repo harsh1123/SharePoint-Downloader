@@ -10,7 +10,9 @@ PARENT_DIR = BASE_DIR.parent
 
 # Local file system settings
 DOWNLOAD_PATH = os.path.join(BASE_DIR, "downloads")
-STATE_FILE = os.path.join(BASE_DIR, "sync_state.json")
+# Try using the user's home directory for the state file
+HOME_DIR = os.path.expanduser("~")
+STATE_FILE = os.path.join(HOME_DIR, "onedrive_sync_state.json")
 LOG_FILE = os.path.join(BASE_DIR, "sync.log")
 DEBUG_LOG_FILE = os.path.join(BASE_DIR, "debug.log")
 
