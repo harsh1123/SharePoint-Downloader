@@ -5,6 +5,7 @@ import requests
 import os
 import json
 import logging
+import traceback
 from urllib.parse import urlparse
 from auth import OneDriveAuth
 from config import GRAPH_BASE_URL, DOWNLOAD_PATH
@@ -98,15 +99,56 @@ class OneDriveClient:
         try:
             drive_id = self.get_drive_id()
 
+            # Log detailed information about the delta request
             if delta_link:
-                endpoint = delta_link.replace(self.base_url + '/', '')
-            else:
-                endpoint = f"me/drive/root/delta"
+                logging.info("Using existing delta link for incremental sync")
+                logging.debug(f"Delta link: {delta_link}")
 
-            return self._make_request(endpoint)
+                # Extract the endpoint from the delta link
+                if self.base_url in delta_link:
+                    endpoint = delta_link.replace(self.base_url + '/', '')
+                    logging.debug(f"Extracted endpoint from delta link: {endpoint}")
+                else:
+                    logging.warning(f"Delta link doesn't contain base URL ({self.base_url})")
+                    logging.warning(f"Using delta link as is: {delta_link}")
+                    endpoint = delta_link
+            else:
+                logging.info("No delta link provided. Performing full sync.")
+                endpoint = f"me/drive/root/delta"
+                logging.debug(f"Using initial delta endpoint: {endpoint}")
+
+            # Make the request
+            logging.info("Sending delta request to Microsoft Graph API...")
+            response = self._make_request(endpoint)
+
+            # Log information about the response
+            if response:
+                logging.info("Received delta response from Microsoft Graph API")
+
+                # Check for delta link in response
+                if '@odata.deltaLink' in response:
+                    new_delta_link = response['@odata.deltaLink']
+                    logging.info("Delta link found in response")
+                    logging.debug(f"New delta link: {new_delta_link}")
+                else:
+                    logging.warning("No delta link found in response")
+                    logging.debug(f"Response keys: {list(response.keys())}")
+
+                # Check for next page link
+                if '@odata.nextLink' in response:
+                    logging.info("Next page link found in response (more items available)")
+
+                # Log item count
+                items = response.get('value', [])
+                logging.info(f"Response contains {len(items)} items")
+            else:
+                logging.warning("Received empty response from Microsoft Graph API")
+
+            return response
 
         except Exception as e:
             logging.error(f"Error getting delta changes: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
             raise
 
     def get_items(self, item_id="root"):

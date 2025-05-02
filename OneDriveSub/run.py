@@ -72,6 +72,8 @@ def main():
     parser.add_argument('--folder', type=str, help='Specific folder to sync (e.g., "Documents")')
     parser.add_argument('--root-only', action='store_true', help='Download only files in the root (not in any folder)')
     parser.add_argument('--create-test-state', action='store_true', help='Create a test state file (for debugging)')
+    parser.add_argument('--force-full-sync', action='store_true', help='Force a full sync by ignoring the existing delta link')
+    parser.add_argument('--show-state', action='store_true', help='Show the current sync state and exit')
     args = parser.parse_args()
 
     # Set up logging
@@ -89,7 +91,8 @@ def main():
             'test_mode': args.test,
             'max_files': args.max_files if args.test else None,
             'target_folder': args.folder,
-            'root_only': args.root_only
+            'root_only': args.root_only,
+            'force_full_sync': args.force_full_sync
         }
 
         # Log the sync options
@@ -107,6 +110,16 @@ def main():
             else:
                 logging.error("Failed to create test state file")
                 return 1
+
+        if args.show_state:
+            logging.info("Showing current sync state...")
+            sync_manager.show_state()
+            return 0
+
+        if args.force_full_sync:
+            logging.info("Forcing full sync by ignoring existing delta link...")
+            sync_manager.delta_link = None
+            logging.info("Delta link cleared. Will perform full sync.")
 
         # Log the sync mode
         if args.check_only:

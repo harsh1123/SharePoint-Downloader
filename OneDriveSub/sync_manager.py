@@ -15,7 +15,8 @@ class SyncManager:
     Manages the synchronization process between OneDrive and local files.
     Implements delta sync to efficiently track and download only changed files.
     """
-    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None, root_only=False):
+    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None,
+                 root_only=False, force_full_sync=False):
         """
         Initialize the sync manager.
 
@@ -25,6 +26,7 @@ class SyncManager:
             max_files (int): Maximum number of files to download in test mode
             target_folder (str): Specific folder to sync
             root_only (bool): If True, only download files in the root (not in any folder)
+            force_full_sync (bool): If True, ignore existing delta link and perform full sync
         """
         self.client = OneDriveClient()
         self.state_file = STATE_FILE
@@ -37,11 +39,12 @@ class SyncManager:
         self.max_files = max_files if test_mode else None
         self.target_folder = target_folder
         self.root_only = root_only
+        self.force_full_sync = force_full_sync
         self.files_processed = 0
 
         logging.debug(f"SyncManager initialized with options: check_only={check_only}, "
                      f"test_mode={test_mode}, max_files={max_files}, target_folder={target_folder}, "
-                     f"root_only={root_only}")
+                     f"root_only={root_only}, force_full_sync={force_full_sync}")
 
         self.load_state()
 
@@ -51,15 +54,89 @@ class SyncManager:
             if os.path.exists(self.state_file):
                 with open(self.state_file, 'r') as f:
                     state = json.load(f)
-                    self.delta_link = state.get("delta_link")
+
+                    # If force_full_sync is enabled, ignore the delta link
+                    if self.force_full_sync:
+                        logging.info("Force full sync enabled. Ignoring existing delta link.")
+                        self.delta_link = None
+                    else:
+                        self.delta_link = state.get("delta_link")
+
                     self.last_sync = state.get("last_sync")
                     logging.info(f"Loaded sync state. Last sync: {self.last_sync}")
+
+                    if self.delta_link:
+                        logging.info("Delta link found. Will perform incremental sync.")
+                        logging.debug(f"Delta link: {self.delta_link}")
+                    else:
+                        logging.info("No delta link found. Will perform full sync.")
+
                     return True
             logging.info("No previous sync state found. Will perform full sync.")
             return False
         except Exception as e:
             logging.error(f"Error loading sync state: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
             return False
+
+    def show_state(self):
+        """Show the current sync state."""
+        try:
+            print("\n=== Current Sync State ===\n")
+
+            # Check if state file exists
+            if os.path.exists(self.state_file):
+                print(f"State file: {os.path.abspath(self.state_file)}")
+                file_size = os.path.getsize(self.state_file)
+                print(f"File size: {file_size} bytes")
+
+                # Load and display state
+                with open(self.state_file, 'r') as f:
+                    state = json.load(f)
+
+                    # Show last sync time
+                    last_sync = state.get("last_sync", "Never")
+                    print(f"Last sync: {last_sync}")
+
+                    # Show delta link
+                    delta_link = state.get("delta_link", "None")
+                    if delta_link:
+                        print(f"Delta link: {delta_link[:50]}...{delta_link[-50:] if len(delta_link) > 100 else delta_link[50:]}")
+                    else:
+                        print("Delta link: None")
+
+                    # Show other state information if available
+                    for key, value in state.items():
+                        if key not in ["delta_link", "last_sync"]:
+                            print(f"{key}: {value}")
+            else:
+                print(f"No state file found at: {os.path.abspath(self.state_file)}")
+                print("A full sync will be performed on the next run.")
+
+            # Show token cache information
+            token_cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".token_cache")
+            if os.path.exists(token_cache_path):
+                print(f"\nToken cache: {token_cache_path}")
+                file_size = os.path.getsize(token_cache_path)
+                print(f"Token cache size: {file_size} bytes")
+            else:
+                print("\nNo token cache found. Authentication will be required on next run.")
+
+            # Show download directory information
+            download_path = self.client.download_path
+            if os.path.exists(download_path):
+                print(f"\nDownload directory: {os.path.abspath(download_path)}")
+                file_count = sum([len(files) for _, _, files in os.walk(download_path)])
+                print(f"Files in download directory: {file_count}")
+            else:
+                print(f"\nDownload directory does not exist: {os.path.abspath(download_path)}")
+
+            print("\n=== End of Sync State ===\n")
+
+        except Exception as e:
+            print(f"Error showing sync state: {str(e)}")
+            logging.error(f"Error showing sync state: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
 
     def save_state(self):
         """Save current sync state."""
