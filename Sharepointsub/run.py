@@ -23,7 +23,7 @@ else:
     print("You can use the .env.template file as a starting point.")
 
 # Import the sync manager
-from sync_manager import SyncManager
+from manual_sync_manager import ManualSyncManager
 from config import LOG_FILE
 
 def setup_logging():
@@ -31,7 +31,7 @@ def setup_logging():
     log_dir = os.path.dirname(LOG_FILE)
     if not os.path.exists(log_dir):
         os.makedirs(log_dir, exist_ok=True)
-    
+
     logging.basicConfig(
         level=logging.INFO,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
@@ -47,16 +47,16 @@ def main():
     parser.add_argument('--continuous', action='store_true', help='Run in continuous mode')
     parser.add_argument('--check-only', action='store_true', help='Check for changes but don\'t download')
     args = parser.parse_args()
-    
+
     setup_logging()
-    
+
     logging.info("=" * 80)
     logging.info("Organizational SharePoint Sync Tool".center(80))
     logging.info("=" * 80)
-    
+
     try:
-        sync_manager = SyncManager()
-        
+        sync_manager = ManualSyncManager(check_only=args.check_only)
+
         if args.continuous:
             sync_manager.run_continuous_sync()
         else:
@@ -66,9 +66,9 @@ def main():
             else:
                 logging.error("Sync failed")
                 return 1
-        
+
         return 0
-    
+
     except Exception as e:
         logging.error(f"Unhandled exception: {str(e)}")
         return 1

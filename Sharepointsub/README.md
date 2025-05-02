@@ -1,11 +1,11 @@
 # Organizational SharePoint Sync Tool
 
-A Python application that connects to Microsoft SharePoint via Microsoft Graph API and downloads files locally, implementing delta sync for efficient synchronization.
+A Python application that connects to Microsoft SharePoint via Microsoft Graph API and downloads files locally, implementing manual state tracking for efficient synchronization.
 
 ## Features
 
 - Secure authentication using client credentials flow (no user interaction required)
-- Delta sync to efficiently download only changed files
+- Manual state tracking to efficiently download only changed files
 - Continuous or one-time sync options
 - Detailed logging
 - Configurable exclusion rules for file types and paths
@@ -65,12 +65,23 @@ A Python application that connects to Microsoft SharePoint via Microsoft Graph A
 
 ## Usage
 
+### Using Batch Files
+
+For convenience, several batch files are provided:
+
+- `run_sharepoint_sync.bat` - Run a one-time sync
+- `run_continuous_sync.bat` - Run in continuous mode
+- `run_check_only.bat` - Check for changes without downloading
+- `reset_and_run.bat` - Delete the state file and run a full sync
+
+### Using Python Commands
+
 ### One-time Sync
 
 Run the script to perform a one-time synchronization:
 
 ```bash
-python run_sharepoint_sync.py
+python run.py
 ```
 
 ### Continuous Sync
@@ -78,7 +89,7 @@ python run_sharepoint_sync.py
 Run the script in continuous mode to keep syncing at regular intervals:
 
 ```bash
-python run_sharepoint_sync.py --continuous
+python run.py --continuous
 ```
 
 ### Check Only Mode
@@ -86,7 +97,15 @@ python run_sharepoint_sync.py --continuous
 Check for changes without downloading files:
 
 ```bash
-python run_sharepoint_sync.py --check-only
+python run.py --check-only
+```
+
+### Reset State
+
+Delete the state file to force a full sync on the next run:
+
+```bash
+python delete_state.py
 ```
 
 ## Configuration
@@ -103,8 +122,17 @@ You can modify the following settings in the `config.py` file:
 This application uses:
 - Microsoft Authentication Library (MSAL) for secure authentication
 - Microsoft Graph API to access SharePoint files
-- Delta query feature for efficient synchronization
+- Manual state tracking for efficient synchronization
 - Client credentials flow for non-interactive authentication
+
+### Manual State Tracking
+
+Manual state tracking is a key feature that makes this tool efficient:
+1. On first run, it downloads all files from your SharePoint site
+2. It saves metadata about each file (ID, name, path, modification time, size)
+3. On subsequent runs, it compares the current state with the saved state
+4. It only downloads files that are new or have changed
+5. This significantly reduces bandwidth usage and sync time
 
 ## Troubleshooting
 
@@ -112,6 +140,8 @@ This application uses:
 - Ensure your application has the correct permissions in Azure AD
 - Verify that your SharePoint site URL is correct
 - Make sure your client ID and secret are valid
+- If sync is not working correctly, try using `reset_and_run.bat` to start fresh
+- For authentication issues, check the `.env` file to ensure credentials are correct
 
 ## Security Notes
 
