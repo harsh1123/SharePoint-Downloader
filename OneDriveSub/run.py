@@ -71,7 +71,9 @@ def main():
     parser.add_argument('--max-files', type=int, default=10, help='Maximum number of files to download in test mode')
     parser.add_argument('--folder', type=str, help='Specific folder to sync (e.g., "Documents")')
     parser.add_argument('--root-only', action='store_true', help='Download only files in the root (not in any folder)')
+    parser.add_argument('--create-test-state', action='store_true', help='Create a test state file (for debugging)')
     parser.add_argument('--force-full-sync', action='store_true', help='Force a full sync by ignoring the existing state file')
+    parser.add_argument('--show-state', action='store_true', help='Show the current sync state and exit')
     parser.add_argument('--force-save-state', action='store_true', help='Force saving the state file after sync')
     args = parser.parse_args()
 
@@ -101,6 +103,25 @@ def main():
         # Initialize the sync manager with options
         sync_manager = ManualSyncManager(**sync_options)
 
+        # Handle special command-line options
+        if args.create_test_state:
+            logging.info("Creating test state file...")
+            if sync_manager.create_test_state_file():
+                logging.info("Test state file created successfully")
+                return 0
+            else:
+                logging.error("Failed to create test state file")
+                return 1
+
+        if args.show_state:
+            logging.info("Showing current sync state...")
+            sync_manager.show_state()
+            return 0
+
+        if args.force_full_sync:
+            logging.info("Forcing full sync by ignoring existing state file...")
+
+        # Log the sync mode
         if args.check_only:
             logging.info("Running in check-only mode (no downloads)")
 
@@ -118,6 +139,16 @@ def main():
         if args.force_save_state:
             logging.info("Forcing state file to be saved after sync")
 
+        # Log the state file path
+        state_file_path = os.path.abspath(sync_manager.state_file)
+        logging.info(f"Using state file: {state_file_path}")
+        if os.path.exists(state_file_path):
+            state_file_size = os.path.getsize(state_file_path)
+            logging.info(f"State file exists. Size: {state_file_size} bytes")
+        else:
+            logging.info("State file does not exist yet. Will be created after successful sync.")
+
+        # Run the sync
         if args.continuous:
             logging.info("Starting continuous sync mode")
             sync_manager.run_continuous_sync()

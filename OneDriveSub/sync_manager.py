@@ -15,7 +15,8 @@ class SyncManager:
     Manages the synchronization process between OneDrive and local files.
     Implements delta sync to efficiently track and download only changed files.
     """
-    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None, root_only=False):
+    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None,
+                 root_only=False, force_full_sync=False, force_save_state=False):
         """
         Initialize the sync manager.
 
@@ -25,6 +26,8 @@ class SyncManager:
             max_files (int): Maximum number of files to download in test mode
             target_folder (str): Specific folder to sync
             root_only (bool): If True, only download files in the root (not in any folder)
+            force_full_sync (bool): If True, ignore existing delta link and perform full sync
+            force_save_state (bool): If True, force saving the state file after sync
         """
         self.client = OneDriveClient()
         self.state_file = STATE_FILE
@@ -37,42 +40,233 @@ class SyncManager:
         self.max_files = max_files if test_mode else None
         self.target_folder = target_folder
         self.root_only = root_only
+        self.force_full_sync = force_full_sync
+        self.force_save_state = force_save_state
         self.files_processed = 0
 
         logging.debug(f"SyncManager initialized with options: check_only={check_only}, "
                      f"test_mode={test_mode}, max_files={max_files}, target_folder={target_folder}, "
-                     f"root_only={root_only}")
+                     f"root_only={root_only}, force_full_sync={force_full_sync}, "
+                     f"force_save_state={force_save_state}")
 
         self.load_state()
 
     def load_state(self):
         """Load previous sync state including delta link."""
         try:
-            if os.path.exists(self.state_file):
+            # Check if state file exists
+            if not os.path.exists(self.state_file):
+                logging.info(f"No state file found at: {os.path.abspath(self.state_file)}")
+                logging.info("Will perform full sync.")
+                return False
+
+            # Check if state file is empty
+            if os.path.getsize(self.state_file) == 0:
+                logging.warning(f"State file exists but is empty: {os.path.abspath(self.state_file)}")
+                logging.info("Will perform full sync.")
+                return False
+
+            # Try to load the state file
+            try:
                 with open(self.state_file, 'r') as f:
                     state = json.load(f)
-                    self.delta_link = state.get("delta_link")
-                    self.last_sync = state.get("last_sync")
-                    logging.info(f"Loaded sync state. Last sync: {self.last_sync}")
-                    return True
-            logging.info("No previous sync state found. Will perform full sync.")
-            return False
+            except json.JSONDecodeError as e:
+                logging.error(f"State file contains invalid JSON: {str(e)}")
+
+                # Try to load backup if it exists
+                backup_file = f"{self.state_file}.bak"
+                if os.path.exists(backup_file):
+                    logging.info(f"Attempting to load backup state file: {backup_file}")
+                    try:
+                        with open(backup_file, 'r') as f:
+                            state = json.load(f)
+                        logging.info("Successfully loaded backup state file")
+                    except Exception as e2:
+                        logging.error(f"Failed to load backup state file: {str(e2)}")
+                        logging.info("Will perform full sync.")
+                        return False
+                else:
+                    logging.info("No backup state file found. Will perform full sync.")
+                    return False
+
+            # Log the loaded state
+            logging.info(f"Loaded sync state from: {os.path.abspath(self.state_file)}")
+            logging.debug(f"State contents: {state}")
+
+            # Check if force_full_sync is enabled
+            if self.force_full_sync:
+                logging.info("Force full sync enabled. Ignoring existing delta link.")
+                self.delta_link = None
+            else:
+                # Get delta link from state
+                self.delta_link = state.get("delta_link")
+
+                # Validate delta link
+                if self.delta_link:
+                    if not isinstance(self.delta_link, str) or not self.delta_link.startswith("http"):
+                        logging.warning(f"Invalid delta link format: {self.delta_link}")
+                        self.delta_link = None
+
+            # Get last sync time
+            self.last_sync = state.get("last_sync")
+
+            # Log sync status
+            if self.last_sync:
+                logging.info(f"Last sync: {self.last_sync}")
+            else:
+                logging.info("No previous sync time found")
+
+            # Log delta link status
+            if self.delta_link:
+                logging.info("Delta link found. Will perform incremental sync.")
+                logging.debug(f"Delta link: {self.delta_link}")
+            else:
+                logging.info("No valid delta link found. Will perform full sync.")
+
+            return True
+
         except Exception as e:
             logging.error(f"Error loading sync state: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
+            logging.info("Will perform full sync due to error.")
             return False
+
+    def show_state(self):
+        """Show the current sync state."""
+        try:
+            print("\n=== Current Sync State ===\n")
+
+            # Check if state file exists
+            if os.path.exists(self.state_file):
+                print(f"State file: {os.path.abspath(self.state_file)}")
+                file_size = os.path.getsize(self.state_file)
+                print(f"File size: {file_size} bytes")
+
+                # Load and display state
+                with open(self.state_file, 'r') as f:
+                    state = json.load(f)
+
+                    # Show last sync time
+                    last_sync = state.get("last_sync", "Never")
+                    print(f"Last sync: {last_sync}")
+
+                    # Show delta link
+                    delta_link = state.get("delta_link", "None")
+                    if delta_link:
+                        print(f"Delta link: {delta_link[:50]}...{delta_link[-50:] if len(delta_link) > 100 else delta_link[50:]}")
+                    else:
+                        print("Delta link: None")
+
+                    # Show other state information if available
+                    for key, value in state.items():
+                        if key not in ["delta_link", "last_sync"]:
+                            print(f"{key}: {value}")
+            else:
+                print(f"No state file found at: {os.path.abspath(self.state_file)}")
+                print("A full sync will be performed on the next run.")
+
+            # Show token cache information
+            token_cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".token_cache")
+            if os.path.exists(token_cache_path):
+                print(f"\nToken cache: {token_cache_path}")
+                file_size = os.path.getsize(token_cache_path)
+                print(f"Token cache size: {file_size} bytes")
+            else:
+                print("\nNo token cache found. Authentication will be required on next run.")
+
+            # Show download directory information
+            download_path = self.client.download_path
+            if os.path.exists(download_path):
+                print(f"\nDownload directory: {os.path.abspath(download_path)}")
+                file_count = sum([len(files) for _, _, files in os.walk(download_path)])
+                print(f"Files in download directory: {file_count}")
+            else:
+                print(f"\nDownload directory does not exist: {os.path.abspath(download_path)}")
+
+            print("\n=== End of Sync State ===\n")
+
+        except Exception as e:
+            print(f"Error showing sync state: {str(e)}")
+            logging.error(f"Error showing sync state: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
 
     def save_state(self):
         """Save current sync state."""
         try:
+            # Log the state file path
+            logging.info(f"Attempting to save sync state to: {os.path.abspath(self.state_file)}")
+
+            # Check if delta_link exists
+            if not self.delta_link:
+                logging.warning("No delta link to save. State file will not be created.")
+                return
+
+            # Create state object
             state = {
                 "delta_link": self.delta_link,
-                "last_sync": datetime.now().isoformat()
+                "last_sync": datetime.now().isoformat(),
+                "version": "1.0",  # Add version for future compatibility
+                "sync_type": "root_only" if self.root_only else "full"
             }
-            with open(self.state_file, 'w') as f:
-                json.dump(state, f)
-            logging.info("Saved sync state.")
+
+            # Ensure directory exists
+            state_dir = os.path.dirname(self.state_file)
+            if state_dir and not os.path.exists(state_dir):
+                logging.info(f"Creating directory for state file: {state_dir}")
+                os.makedirs(state_dir, exist_ok=True)
+
+            # First write to a temporary file, then rename to avoid corruption
+            temp_file = f"{self.state_file}.tmp"
+            logging.debug(f"Writing state to temporary file: {temp_file}")
+
+            with open(temp_file, 'w') as f:
+                json.dump(state, f, indent=2)  # Use indentation for readability
+
+            # Verify the temp file was created
+            if not os.path.exists(temp_file):
+                logging.error(f"Failed to create temporary state file at: {temp_file}")
+                return
+
+            # Rename the temp file to the actual state file
+            if os.path.exists(self.state_file):
+                # Create a backup of the existing state file
+                backup_file = f"{self.state_file}.bak"
+                try:
+                    os.replace(self.state_file, backup_file)
+                    logging.debug(f"Created backup of existing state file: {backup_file}")
+                except Exception as e:
+                    logging.warning(f"Could not create backup of state file: {str(e)}")
+
+            # Now rename the temp file to the actual state file
+            os.replace(temp_file, self.state_file)
+
+            # Verify the file was created
+            if os.path.exists(self.state_file):
+                file_size = os.path.getsize(self.state_file)
+                logging.info(f"Successfully saved sync state. File size: {file_size} bytes")
+
+                # Read back the file to verify it's valid JSON
+                try:
+                    with open(self.state_file, 'r') as f:
+                        json.load(f)
+                    logging.debug("Verified state file contains valid JSON")
+                except json.JSONDecodeError:
+                    logging.error("State file contains invalid JSON!")
+            else:
+                logging.error(f"Failed to create state file at: {self.state_file}")
+
         except Exception as e:
             logging.error(f"Error saving sync state: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
+
+            # Try one more time with a simpler approach
+            try:
+                logging.info("Trying fallback method to save state...")
+                with open(self.state_file, 'w') as f:
+                    json.dump({"delta_link": self.delta_link, "last_sync": datetime.now().isoformat()}, f)
+                logging.info("Fallback save succeeded")
+            except Exception as e2:
+                logging.error(f"Fallback save also failed: {str(e2)}")
 
     def should_process_item(self, item):
         """
@@ -357,8 +551,41 @@ class SyncManager:
             else:
                 logging.info("Starting sync process...")
 
+            # Log delta link status
+            if self.delta_link:
+                logging.info(f"Using existing delta link from previous sync")
+                logging.debug(f"Delta link: {self.delta_link}")
+            else:
+                logging.info(f"No delta link found. Performing full sync.")
+
             # Get changes since last sync
+            logging.info("Requesting changes from OneDrive...")
             delta_response = self.client.get_delta(self.delta_link)
+
+            # Check if we got a valid response
+            if not delta_response or 'value' not in delta_response:
+                logging.error("Invalid delta response received")
+                logging.debug(f"Response: {delta_response}")
+                return False
+
+            # Check for deltaLink in response
+            if '@odata.deltaLink' in delta_response:
+                new_delta_link = delta_response['@odata.deltaLink']
+                logging.info("Received new delta link from OneDrive")
+                logging.debug(f"New delta link: {new_delta_link}")
+                self.delta_link = new_delta_link
+
+                # Save the state immediately after getting a valid delta link
+                self.save_state()
+                logging.info("State saved with new delta link")
+            else:
+                logging.warning("No delta link received in response")
+                logging.debug(f"Response keys: {list(delta_response.keys())}")
+
+                # Don't create dummy delta links anymore - they don't work with Microsoft's API
+                if self.force_save_state:
+                    logging.info("Force save state enabled, but not creating a dummy delta link as it won't work.")
+                    logging.info("Will perform a full sync on next run.")
 
             # Process each changed item
             items = delta_response.get('value', [])
@@ -379,9 +606,22 @@ class SyncManager:
                 self.process_item(item)
 
             # Save the delta link for next sync
+            logging.info("Checking for delta link in response...")
             if '@odata.deltaLink' in delta_response:
-                self.delta_link = delta_response['@odata.deltaLink']
+                logging.info("Delta link found in response. Saving state...")
+                # Delta link was already set earlier, just save the state
                 self.save_state()
+            else:
+                logging.warning("No delta link found in response.")
+                # Log the response keys for debugging
+                logging.debug(f"Response keys: {list(delta_response.keys())}")
+
+                # Don't create dummy delta links anymore - they don't work with Microsoft's API
+                if self.force_save_state:
+                    logging.info("Force save state enabled, but not creating a dummy delta link as it won't work.")
+                    logging.info("Will perform a full sync on next run.")
+                else:
+                    logging.warning("State will not be saved. Will perform a full sync on next run.")
 
             # Log summary
             if self.check_only:
@@ -431,6 +671,34 @@ class SyncManager:
             logging.info("Sync process interrupted by user")
         except Exception as e:
             logging.error(f"Unexpected error in continuous sync: {str(e)}")
+
+    def create_test_state_file(self):
+        """
+        Create a test state file with a dummy delta link.
+        This is useful for debugging state file issues.
+        """
+        try:
+            logging.info("Creating test state file...")
+
+            # Create a dummy delta link
+            dummy_delta_link = "https://graph.microsoft.com/v1.0/me/drive/root/delta?token=test_token"
+            self.delta_link = dummy_delta_link
+
+            # Save the state
+            self.save_state()
+
+            # Verify the file was created
+            if os.path.exists(self.state_file):
+                logging.info(f"Test state file created successfully at: {os.path.abspath(self.state_file)}")
+                return True
+            else:
+                logging.error(f"Failed to create test state file")
+                return False
+
+        except Exception as e:
+            logging.error(f"Error creating test state file: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
+            return False
 
     def run_one_time_sync(self):
         """

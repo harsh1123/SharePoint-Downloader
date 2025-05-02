@@ -16,7 +16,7 @@ class ManualSyncManager:
     Manages the synchronization process between OneDrive and local files.
     Uses a manual state tracking approach instead of delta sync API.
     """
-    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None, 
+    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None,
                  root_only=False, force_full_sync=False, force_save_state=False):
         """
         Initialize the sync manager.
@@ -93,10 +93,10 @@ class ManualSyncManager:
 
             # Log the loaded state
             logging.info(f"Loaded sync state from: {os.path.abspath(self.state_file)}")
-            
+
             # Get file state from state
             self.file_state = state.get("files", {})
-            
+
             # Get last sync time
             self.last_sync = state.get("last_sync")
 
@@ -304,23 +304,23 @@ class ManualSyncManager:
             file_path = os.path.join(self.client.download_path, parent_path, name)
             remote_mtime_str = item.get('lastModifiedDateTime')
             size_bytes = item.get('size', 0)
-            
+
             # Format size for display
             size_mb = size_bytes / (1024 * 1024)
             size_display = f"{size_mb:.2f} MB" if size_bytes > 0 else "unknown size"
-            
+
             # Create a unique path key for the state file
             path_key = os.path.join(parent_path, name).replace('\\', '/')
-            
+
             # Check if we need to download this file
             need_download = False
-            
+
             # If the file is in our state
             if path_key in self.file_state:
                 stored_info = self.file_state[path_key]
                 stored_mtime = stored_info.get('lastModifiedDateTime')
                 stored_size = stored_info.get('size', 0)
-                
+
                 # If the remote file is newer or different size, download it
                 if remote_mtime_str and remote_mtime_str != stored_mtime:
                     logging.info(f"File has been modified: {name}")
@@ -334,24 +334,24 @@ class ManualSyncManager:
                 # File is not in our state, so it's new
                 logging.info(f"New file found: {name}")
                 need_download = True
-            
+
             # Check if the local file exists and matches what we expect
             if os.path.exists(file_path) and not need_download:
                 local_size = os.path.getsize(file_path)
                 if local_size != size_bytes:
                     logging.info(f"Local file size ({local_size}) differs from remote ({size_bytes}): {name}")
                     need_download = True
-            
+
             # If the local file doesn't exist, we need to download
             if not os.path.exists(file_path):
                 need_download = True
-            
+
             # In check-only mode, just log what would be downloaded
             if self.check_only:
                 if need_download:
                     logging.info(f"Would download: {name} ({size_display})")
                 return
-            
+
             # Download the file if needed
             if need_download:
                 # In test mode, provide more detailed logging
@@ -359,10 +359,10 @@ class ManualSyncManager:
                     logging.info(f"Test mode - downloading file {self.files_processed+1}/{self.max_files}: {name} ({size_display})")
                 else:
                     logging.info(f"Downloading file: {name} ({size_display})")
-                
+
                 # Download the file
                 self.client.download_file(item)
-                
+
                 # Update the state with the new file info
                 self.file_state[path_key] = {
                     'id': file_id,
@@ -417,11 +417,11 @@ class ManualSyncManager:
     def get_all_files_recursive(self, folder_id="root", path=""):
         """
         Get all files recursively from OneDrive.
-        
+
         Args:
             folder_id (str): The folder ID to start from
             path (str): The current path (for logging)
-            
+
         Returns:
             list: List of file items
         """
@@ -432,28 +432,28 @@ class ManualSyncManager:
                 endpoint = "me/drive/root/children"
             else:
                 endpoint = f"me/drive/items/{folder_id}/children"
-                
+
             response = self.client._make_request(endpoint)
             items = response.get('value', [])
-            
+
             # Process each item
             for item in items:
                 # If it's a file, add it to our list
                 if 'file' in item:
                     all_items.append(item)
-                
+
                 # If it's a folder and we're not in root-only mode, process it recursively
                 elif 'folder' in item and not self.root_only:
                     folder_id = item.get('id')
                     folder_name = item.get('name', '')
                     new_path = os.path.join(path, folder_name)
-                    
+
                     # Get items in this folder
                     folder_items = self.get_all_files_recursive(folder_id, new_path)
                     all_items.extend(folder_items)
-            
+
             return all_items
-            
+
         except Exception as e:
             logging.error(f"Error getting files from {path or 'root'}: {str(e)}")
             logging.debug(f"Stack trace: {traceback.format_exc()}")
@@ -491,20 +491,20 @@ class ManualSyncManager:
             else:
                 # For full sync, get all files recursively
                 items = self.get_all_files_recursive()
-            
+
             # Log what we found
             total_items = len(items)
             logging.info(f"Found {total_items} files to process")
-            
+
             # Process each item
             for i, item in enumerate(items):
                 if i % 10 == 0:  # Log progress every 10 items
                     logging.info(f"Processing item {i+1}/{total_items}...")
                 self.process_item(item)
-            
+
             # Save the state file
             self.save_state()
-            
+
             # Log summary
             if self.check_only:
                 logging.info(f"Sync completed successfully in CHECK-ONLY mode")
@@ -548,6 +548,110 @@ class ManualSyncManager:
         except Exception as e:
             logging.error(f"Unexpected error in continuous sync: {str(e)}")
             logging.debug(f"Stack trace: {traceback.format_exc()}")
+
+    def show_state(self):
+        """Show the current sync state."""
+        try:
+            print("\n=== Current Sync State ===\n")
+
+            # Check if state file exists
+            if os.path.exists(self.state_file):
+                print(f"State file: {os.path.abspath(self.state_file)}")
+                file_size = os.path.getsize(self.state_file)
+                print(f"File size: {file_size} bytes")
+
+                # Load and display state
+                with open(self.state_file, 'r') as f:
+                    state = json.load(f)
+
+                    # Show last sync time
+                    last_sync = state.get("last_sync", "Never")
+                    print(f"Last sync: {last_sync}")
+
+                    # Show file count
+                    files = state.get("files", {})
+                    print(f"Files tracked: {len(files)}")
+
+                    # Show a sample of files
+                    if files:
+                        print("\nSample of tracked files:")
+                        for i, (path, info) in enumerate(list(files.items())[:5]):
+                            print(f"  {i+1}. {path}")
+                            print(f"     Last modified: {info.get('lastModifiedDateTime', 'unknown')}")
+                            print(f"     Size: {info.get('size', 0)} bytes")
+
+                        if len(files) > 5:
+                            print(f"  ... and {len(files) - 5} more files")
+            else:
+                print(f"No state file found at: {os.path.abspath(self.state_file)}")
+                print("A full sync will be performed on the next run.")
+
+            # Show token cache information
+            token_cache_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".token_cache")
+            if os.path.exists(token_cache_path):
+                print(f"\nToken cache: {token_cache_path}")
+                file_size = os.path.getsize(token_cache_path)
+                print(f"Token cache size: {file_size} bytes")
+            else:
+                print("\nNo token cache found. Authentication will be required on next run.")
+
+            # Show download directory information
+            download_path = self.client.download_path
+            if os.path.exists(download_path):
+                print(f"\nDownload directory: {os.path.abspath(download_path)}")
+                file_count = sum([len(files) for _, _, files in os.walk(download_path)])
+                print(f"Files in download directory: {file_count}")
+            else:
+                print(f"\nDownload directory does not exist: {os.path.abspath(download_path)}")
+
+            print("\n=== End of Sync State ===\n")
+
+        except Exception as e:
+            print(f"Error showing sync state: {str(e)}")
+            logging.error(f"Error showing sync state: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
+
+    def create_test_state_file(self):
+        """
+        Create a test state file with sample file entries.
+        This is useful for debugging state file issues.
+        """
+        try:
+            logging.info("Creating test state file...")
+
+            # Create sample file entries
+            self.file_state = {
+                "Documents/test1.docx": {
+                    "id": "test_id_1",
+                    "name": "test1.docx",
+                    "lastModifiedDateTime": datetime.now().isoformat(),
+                    "size": 12345,
+                    "path": "Documents/test1.docx"
+                },
+                "test2.xlsx": {
+                    "id": "test_id_2",
+                    "name": "test2.xlsx",
+                    "lastModifiedDateTime": datetime.now().isoformat(),
+                    "size": 54321,
+                    "path": "test2.xlsx"
+                }
+            }
+
+            # Save the state
+            self.save_state()
+
+            # Verify the file was created
+            if os.path.exists(self.state_file):
+                logging.info(f"Test state file created successfully at: {os.path.abspath(self.state_file)}")
+                return True
+            else:
+                logging.error(f"Failed to create test state file")
+                return False
+
+        except Exception as e:
+            logging.error(f"Error creating test state file: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
+            return False
 
     def run_one_time_sync(self):
         """
