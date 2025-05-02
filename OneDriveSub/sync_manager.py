@@ -64,15 +64,41 @@ class SyncManager:
     def save_state(self):
         """Save current sync state."""
         try:
+            # Log the state file path
+            logging.info(f"Attempting to save sync state to: {os.path.abspath(self.state_file)}")
+
+            # Check if delta_link exists
+            if not self.delta_link:
+                logging.warning("No delta link to save. State file will not be created.")
+                return
+
+            # Create state object
             state = {
                 "delta_link": self.delta_link,
                 "last_sync": datetime.now().isoformat()
             }
+
+            # Ensure directory exists
+            state_dir = os.path.dirname(self.state_file)
+            if state_dir and not os.path.exists(state_dir):
+                logging.info(f"Creating directory for state file: {state_dir}")
+                os.makedirs(state_dir, exist_ok=True)
+
+            # Save the state file
+            logging.debug(f"Writing state to file: {state}")
             with open(self.state_file, 'w') as f:
                 json.dump(state, f)
-            logging.info("Saved sync state.")
+
+            # Verify the file was created
+            if os.path.exists(self.state_file):
+                file_size = os.path.getsize(self.state_file)
+                logging.info(f"Successfully saved sync state. File size: {file_size} bytes")
+            else:
+                logging.error(f"Failed to create state file at: {self.state_file}")
+
         except Exception as e:
             logging.error(f"Error saving sync state: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
 
     def should_process_item(self, item):
         """
@@ -357,8 +383,25 @@ class SyncManager:
             else:
                 logging.info("Starting sync process...")
 
+            # Log delta link status
+            if self.delta_link:
+                logging.info(f"Using existing delta link from previous sync")
+                logging.debug(f"Delta link: {self.delta_link}")
+            else:
+                logging.info(f"No delta link found. Performing full sync.")
+
             # Get changes since last sync
+            logging.info("Requesting changes from OneDrive...")
             delta_response = self.client.get_delta(self.delta_link)
+
+            # Check for deltaLink in response
+            if '@odata.deltaLink' in delta_response:
+                new_delta_link = delta_response['@odata.deltaLink']
+                logging.info("Received new delta link from OneDrive")
+                logging.debug(f"New delta link: {new_delta_link}")
+                self.delta_link = new_delta_link
+            else:
+                logging.warning("No delta link received in response")
 
             # Process each changed item
             items = delta_response.get('value', [])
@@ -379,9 +422,15 @@ class SyncManager:
                 self.process_item(item)
 
             # Save the delta link for next sync
+            logging.info("Checking for delta link in response...")
             if '@odata.deltaLink' in delta_response:
-                self.delta_link = delta_response['@odata.deltaLink']
+                logging.info("Delta link found in response. Saving state...")
+                # Delta link was already set earlier, just save the state
                 self.save_state()
+            else:
+                logging.warning("No delta link found in response. State will not be saved.")
+                # Log the response keys for debugging
+                logging.debug(f"Response keys: {list(delta_response.keys())}")
 
             # Log summary
             if self.check_only:
@@ -431,6 +480,34 @@ class SyncManager:
             logging.info("Sync process interrupted by user")
         except Exception as e:
             logging.error(f"Unexpected error in continuous sync: {str(e)}")
+
+    def create_test_state_file(self):
+        """
+        Create a test state file with a dummy delta link.
+        This is useful for debugging state file issues.
+        """
+        try:
+            logging.info("Creating test state file...")
+
+            # Create a dummy delta link
+            dummy_delta_link = "https://graph.microsoft.com/v1.0/me/drive/root/delta?token=test_token"
+            self.delta_link = dummy_delta_link
+
+            # Save the state
+            self.save_state()
+
+            # Verify the file was created
+            if os.path.exists(self.state_file):
+                logging.info(f"Test state file created successfully at: {os.path.abspath(self.state_file)}")
+                return True
+            else:
+                logging.error(f"Failed to create test state file")
+                return False
+
+        except Exception as e:
+            logging.error(f"Error creating test state file: {str(e)}")
+            logging.debug(f"Stack trace: {traceback.format_exc()}")
+            return False
 
     def run_one_time_sync(self):
         """

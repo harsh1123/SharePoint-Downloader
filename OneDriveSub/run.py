@@ -71,6 +71,7 @@ def main():
     parser.add_argument('--max-files', type=int, default=10, help='Maximum number of files to download in test mode')
     parser.add_argument('--folder', type=str, help='Specific folder to sync (e.g., "Documents")')
     parser.add_argument('--root-only', action='store_true', help='Download only files in the root (not in any folder)')
+    parser.add_argument('--create-test-state', action='store_true', help='Create a test state file (for debugging)')
     args = parser.parse_args()
 
     # Set up logging
@@ -97,6 +98,17 @@ def main():
         # Initialize the sync manager with options
         sync_manager = SyncManager(**sync_options)
 
+        # Handle special command-line options
+        if args.create_test_state:
+            logging.info("Creating test state file...")
+            if sync_manager.create_test_state_file():
+                logging.info("Test state file created successfully")
+                return 0
+            else:
+                logging.error("Failed to create test state file")
+                return 1
+
+        # Log the sync mode
         if args.check_only:
             logging.info("Running in check-only mode (no downloads)")
 
@@ -108,6 +120,16 @@ def main():
         if args.root_only:
             logging.info("Running in root-only mode (only files not in any folder)")
 
+        # Log the state file path
+        state_file_path = os.path.abspath(sync_manager.state_file)
+        logging.info(f"Using state file: {state_file_path}")
+        if os.path.exists(state_file_path):
+            state_file_size = os.path.getsize(state_file_path)
+            logging.info(f"State file exists. Size: {state_file_size} bytes")
+        else:
+            logging.info("State file does not exist yet. Will be created after successful sync.")
+
+        # Run the sync
         if args.continuous:
             logging.info("Starting continuous sync mode")
             sync_manager.run_continuous_sync()
