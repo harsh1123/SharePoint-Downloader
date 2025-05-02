@@ -15,7 +15,7 @@ class SyncManager:
     Manages the synchronization process between OneDrive and local files.
     Implements delta sync to efficiently track and download only changed files.
     """
-    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None):
+    def __init__(self, check_only=False, test_mode=False, max_files=None, target_folder=None, root_only=False):
         """
         Initialize the sync manager.
 
@@ -24,6 +24,7 @@ class SyncManager:
             test_mode (bool): If True, run in test mode with limited files
             max_files (int): Maximum number of files to download in test mode
             target_folder (str): Specific folder to sync
+            root_only (bool): If True, only download files in the root (not in any folder)
         """
         self.client = OneDriveClient()
         self.state_file = STATE_FILE
@@ -35,10 +36,12 @@ class SyncManager:
         self.test_mode = test_mode
         self.max_files = max_files if test_mode else None
         self.target_folder = target_folder
+        self.root_only = root_only
         self.files_processed = 0
 
         logging.debug(f"SyncManager initialized with options: check_only={check_only}, "
-                     f"test_mode={test_mode}, max_files={max_files}, target_folder={target_folder}")
+                     f"test_mode={test_mode}, max_files={max_files}, target_folder={target_folder}, "
+                     f"root_only={root_only}")
 
         self.load_state()
 
@@ -120,6 +123,18 @@ class SyncManager:
             ):
                 logging.debug(f"Skipping item not in target folder: {full_path}")
                 return
+
+            # Check if we only want root files and this item is in a folder
+            if self.root_only:
+                if parent_path:  # If parent_path is not empty, the item is not in the root
+                    logging.debug(f"Skipping non-root item: {full_path}")
+                    return
+                logging.debug(f"Processing root item: {name}")
+
+                # Skip folders if we only want root files
+                if 'folder' in item:
+                    logging.debug(f"Skipping folder in root-only mode: {name}")
+                    return
 
             # Check if we've reached the maximum number of files in test mode
             if self.test_mode and self.max_files is not None and self.files_processed >= self.max_files:
@@ -239,6 +254,8 @@ class SyncManager:
                 logging.info(f"Starting sync process in TEST mode (max {self.max_files} files)...")
                 if self.target_folder:
                     logging.info(f"Targeting folder: {self.target_folder}")
+            elif self.root_only:
+                logging.info("Starting sync process in ROOT-ONLY mode (only files not in any folder)...")
             else:
                 logging.info("Starting sync process...")
 
@@ -275,6 +292,9 @@ class SyncManager:
             elif self.test_mode:
                 logging.info(f"Sync completed successfully in TEST mode")
                 logging.info(f"Downloaded {self.files_processed}/{self.max_files} files")
+            elif self.root_only:
+                logging.info(f"Sync completed successfully in ROOT-ONLY mode")
+                logging.info(f"Downloaded {self.files_processed} files from the root directory")
             else:
                 logging.info("Sync completed successfully")
                 logging.info(f"Downloaded {self.files_processed} files")

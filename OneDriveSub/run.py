@@ -70,6 +70,7 @@ def main():
     parser.add_argument('--test', action='store_true', help='Run in test mode (limited files)')
     parser.add_argument('--max-files', type=int, default=10, help='Maximum number of files to download in test mode')
     parser.add_argument('--folder', type=str, help='Specific folder to sync (e.g., "Documents")')
+    parser.add_argument('--root-only', action='store_true', help='Download only files in the root (not in any folder)')
     args = parser.parse_args()
 
     # Set up logging
@@ -86,7 +87,8 @@ def main():
             'check_only': args.check_only,
             'test_mode': args.test,
             'max_files': args.max_files if args.test else None,
-            'target_folder': args.folder
+            'target_folder': args.folder,
+            'root_only': args.root_only
         }
 
         # Log the sync options
@@ -102,6 +104,9 @@ def main():
             logging.info(f"Running in test mode (max {args.max_files} files)")
             if args.folder:
                 logging.info(f"Targeting specific folder: {args.folder}")
+
+        if args.root_only:
+            logging.info("Running in root-only mode (only files not in any folder)")
 
         if args.continuous:
             logging.info("Starting continuous sync mode")
