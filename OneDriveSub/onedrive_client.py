@@ -95,56 +95,96 @@ class OneDriveClient:
         """
         Get changes since the last sync using delta query.
         If delta_link is provided, it will be used to get only changes since the last query.
+
+        This method handles pagination automatically and returns a complete response with all items.
         """
         try:
             drive_id = self.get_drive_id()
+            all_items = []
+            final_response = None
+            current_link = None
 
             # Log detailed information about the delta request
             if delta_link:
                 logging.info("Using existing delta link for incremental sync")
                 logging.debug(f"Delta link: {delta_link}")
-
-                # Extract the endpoint from the delta link
-                if self.base_url in delta_link:
-                    endpoint = delta_link.replace(self.base_url + '/', '')
-                    logging.debug(f"Extracted endpoint from delta link: {endpoint}")
-                else:
-                    logging.warning(f"Delta link doesn't contain base URL ({self.base_url})")
-                    logging.warning(f"Using delta link as is: {delta_link}")
-                    endpoint = delta_link
+                current_link = delta_link
             else:
                 logging.info("No delta link provided. Performing full sync.")
-                endpoint = f"me/drive/root/delta"
-                logging.debug(f"Using initial delta endpoint: {endpoint}")
+                current_link = f"{self.base_url}/me/drive/root/delta"
+                logging.debug(f"Using initial delta endpoint: {current_link}")
 
-            # Make the request
-            logging.info("Sending delta request to Microsoft Graph API...")
-            response = self._make_request(endpoint)
+            # Process all pages of results
+            page_count = 0
+            while current_link:
+                page_count += 1
+                logging.info(f"Fetching delta page {page_count}...")
 
-            # Log information about the response
-            if response:
-                logging.info("Received delta response from Microsoft Graph API")
-
-                # Check for delta link in response
-                if '@odata.deltaLink' in response:
-                    new_delta_link = response['@odata.deltaLink']
-                    logging.info("Delta link found in response")
-                    logging.debug(f"New delta link: {new_delta_link}")
+                # Make the request - handle full URLs or relative endpoints
+                if current_link.startswith(self.base_url):
+                    # It's a full URL, extract the endpoint
+                    endpoint = current_link.replace(self.base_url + '/', '')
+                    logging.debug(f"Extracted endpoint from link: {endpoint}")
+                    response = self._make_request(endpoint)
                 else:
-                    logging.warning("No delta link found in response")
-                    logging.debug(f"Response keys: {list(response.keys())}")
+                    # It's already an endpoint or a relative URL
+                    logging.debug(f"Using link as endpoint: {current_link}")
+                    response = self._make_request(current_link)
 
-                # Check for next page link
+                if not response:
+                    logging.warning(f"Received empty response for page {page_count}")
+                    break
+
+                # Get items from this page and add to our collection
+                page_items = response.get('value', [])
+                all_items.extend(page_items)
+                logging.info(f"Page {page_count} contains {len(page_items)} items")
+
+                # Save the final response for returning delta link
+                final_response = response
+
+                # Check for next page or delta link
                 if '@odata.nextLink' in response:
-                    logging.info("Next page link found in response (more items available)")
+                    current_link = response['@odata.nextLink']
+                    logging.info(f"Found next page link. Will fetch page {page_count + 1}")
+                    logging.debug(f"Next link: {current_link}")
+                elif '@odata.deltaLink' in response:
+                    # We've reached the last page, and we have a delta link
+                    delta_link = response['@odata.deltaLink']
+                    logging.info("Reached last page. Delta link found.")
+                    logging.debug(f"Delta link: {delta_link}")
+                    current_link = None  # Exit the loop
+                else:
+                    # No more pages and no delta link
+                    logging.warning("No next page link or delta link found. This is unexpected.")
+                    logging.debug(f"Response keys: {list(response.keys())}")
+                    current_link = None  # Exit the loop
 
-                # Log item count
-                items = response.get('value', [])
-                logging.info(f"Response contains {len(items)} items")
+            # Create a combined response with all items
+            if final_response:
+                # Create a new response with all items
+                combined_response = {
+                    'value': all_items
+                }
+
+                # Copy over any odata properties
+                for key in final_response:
+                    if key.startswith('@odata.') and key != '@odata.nextLink':
+                        combined_response[key] = final_response[key]
+
+                logging.info(f"Completed delta query. Total items: {len(all_items)}")
+
+                # Check for delta link in final response
+                if '@odata.deltaLink' in final_response:
+                    logging.info("Delta link found in final response")
+                else:
+                    logging.warning("No delta link found in final response. This may cause issues with incremental sync.")
+                    logging.debug(f"Final response keys: {list(final_response.keys())}")
+
+                return combined_response
             else:
-                logging.warning("Received empty response from Microsoft Graph API")
-
-            return response
+                logging.warning("No valid response received from any page")
+                return {'value': []}
 
         except Exception as e:
             logging.error(f"Error getting delta changes: {str(e)}")
