@@ -1,0 +1,972 @@
+2025-05-02 16:10:37 - root - INFO - ================================================================================
+2025-05-02 16:10:37 - root - INFO -                     OneDrive Sync Tool for Individual Users                     
+2025-05-02 16:10:37 - root - INFO - ================================================================================
+2025-05-02 16:10:37 - root - INFO - Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2025-05-02 16:10:37 - root - INFO - Operating system: nt
+2025-05-02 16:10:37 - root - INFO - Log level: DEBUG
+2025-05-02 16:10:37 - root - INFO - Regular log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\sync.log
+2025-05-02 16:10:37 - root - INFO - Debug log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\debug.log
+2025-05-02 16:10:37 - root - INFO - Initializing sync manager...
+2025-05-02 16:10:37 - root - INFO - Sync options: {'check_only': False, 'test_mode': False, 'max_files': None, 'target_folder': None, 'root_only': True, 'force_full_sync': False, 'force_save_state': False}
+2025-05-02 16:10:37 - root - INFO - Loaded sync state from: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:10:37 - root - INFO - Last sync: 2025-05-02T16:01:22.248167
+2025-05-02 16:10:37 - root - INFO - Found 17 files in state
+2025-05-02 16:10:37 - root - INFO - Running in root-only mode (only files not in any folder)
+2025-05-02 16:10:37 - root - INFO - Using state file: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:10:37 - root - INFO - State file exists. Size: 3998 bytes
+2025-05-02 16:10:37 - root - INFO - Starting one-time sync
+2025-05-02 16:10:37 - root - INFO - Starting sync process in ROOT-ONLY mode (only files not in any folder)...
+2025-05-02 16:10:37 - root - INFO - Listing all files in the root of OneDrive...
+2025-05-02 16:10:37 - root - INFO - Found account in cache, attempting to get token silently
+2025-05-02 16:10:37 - root - INFO - Successfully acquired token from cache
+2025-05-02 16:10:40 - root - INFO - Found 17 files and 4 folders in the root
+2025-05-02 16:10:40 - root - INFO - Files in the root:
+2025-05-02 16:10:40 - root - INFO -   1. Book.xlsx (unknown size)
+2025-05-02 16:10:40 - root - INFO -   2. Document 1.docx (0.05 MB)
+2025-05-02 16:10:40 - root - INFO -   3. Document 2.docx (0.01 MB)
+2025-05-02 16:10:40 - root - INFO -   4. Document 3.docx (0.01 MB)
+2025-05-02 16:10:40 - root - INFO -   5. Document 4.docx (0.01 MB)
+2025-05-02 16:10:40 - root - INFO -   6. Document.docx (unknown size)
+2025-05-02 16:10:40 - root - INFO -   7. Document_test.docx (0.01 MB)
+2025-05-02 16:10:40 - root - INFO -   8. Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:10:40 - root - INFO -   9. IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:10:40 - root - INFO -   10. Presentation 1.pptx (unknown size)
+2025-05-02 16:10:40 - root - INFO -   11. Presentation 2.pptx (unknown size)
+2025-05-02 16:10:40 - root - INFO -   12. Presentation 3.pptx (0.03 MB)
+2025-05-02 16:10:40 - root - INFO -   13. Presentation.pptx (unknown size)
+2025-05-02 16:10:40 - root - INFO -   14. projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:10:40 - root - INFO -   15. projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:10:40 - root - INFO -   16. projectSynopsis.doc (0.21 MB)
+2025-05-02 16:10:40 - root - INFO -   17. projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:10:42 - root - INFO - Found 17 files to process
+2025-05-02 16:10:42 - root - INFO - Processing item 1/17...
+2025-05-02 16:10:42 - root - INFO - Found root item: Book.xlsx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Book.xlsx (unknown size)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Book.xlsx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Book.xlsx
+2025-05-02 16:10:42 - root - INFO - Found root item: Document 1.docx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Document 1.docx (0.05 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Document 1.docx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Document 1.docx
+2025-05-02 16:10:42 - root - INFO - Found root item: Document 2.docx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Document 2.docx (0.01 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Document 2.docx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Document 2.docx
+2025-05-02 16:10:42 - root - INFO - Found root item: Document 3.docx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Document 3.docx (0.01 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Document 3.docx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Document 3.docx
+2025-05-02 16:10:42 - root - INFO - Found root item: Document 4.docx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Document 4.docx (0.01 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Document 4.docx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Document 4.docx
+2025-05-02 16:10:42 - root - INFO - Found root item: Document.docx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Document.docx (unknown size)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Document.docx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Document.docx
+2025-05-02 16:10:42 - root - INFO - Found root item: Document_test.docx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Document_test.docx (0.01 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Document_test.docx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Document_test.docx
+2025-05-02 16:10:42 - root - INFO - Found root item: Getting started with OneDrive.pdf (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Getting started with OneDrive.pdf
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Getting started with OneDrive.pdf
+2025-05-02 16:10:42 - root - INFO - Found root item: IP Synopsis Format.docx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: IP Synopsis Format.docx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): IP Synopsis Format.docx
+2025-05-02 16:10:42 - root - INFO - Found root item: Presentation 1.pptx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Presentation 1.pptx (unknown size)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Presentation 1.pptx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Presentation 1.pptx
+2025-05-02 16:10:42 - root - INFO - Processing item 11/17...
+2025-05-02 16:10:42 - root - INFO - Found root item: Presentation 2.pptx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Presentation 2.pptx (unknown size)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Presentation 2.pptx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Presentation 2.pptx
+2025-05-02 16:10:42 - root - INFO - Found root item: Presentation 3.pptx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Presentation 3.pptx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Presentation 3.pptx
+2025-05-02 16:10:42 - root - INFO - Found root item: Presentation.pptx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: Presentation.pptx (unknown size)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: Presentation.pptx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): Presentation.pptx
+2025-05-02 16:10:42 - root - INFO - Found root item: projectSynopsis 1.doc (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: projectSynopsis 1.doc
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): projectSynopsis 1.doc
+2025-05-02 16:10:42 - root - INFO - Found root item: projectSynopsis 2.doc (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: projectSynopsis 2.doc
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): projectSynopsis 2.doc
+2025-05-02 16:10:42 - root - INFO - Found root item: projectSynopsis.doc (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: projectSynopsis.doc
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): projectSynopsis.doc
+2025-05-02 16:10:42 - root - INFO - Found root item: projectSynopsis.pptx (File)
+2025-05-02 16:10:42 - root - INFO - Root file details: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:10:42 - root - INFO - File is unchanged: projectSynopsis.pptx
+2025-05-02 16:10:42 - root - INFO - Skipping file (up-to-date): projectSynopsis.pptx
+2025-05-02 16:10:42 - root - INFO - Attempting to save sync state to: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:10:42 - root - INFO - Successfully saved sync state. File size: 3998 bytes
+2025-05-02 16:10:42 - root - INFO - Sync completed successfully in ROOT-ONLY mode
+2025-05-02 16:10:42 - root - INFO - Downloaded 0 files from the root directory
+2025-05-02 16:10:42 - root - INFO - Sync completed successfully
+2025-05-02 16:10:42 - root - INFO - Program completed successfully
+2025-05-02 16:12:30 - root - INFO - ================================================================================
+2025-05-02 16:12:30 - root - INFO -                     OneDrive Sync Tool for Individual Users                     
+2025-05-02 16:12:30 - root - INFO - ================================================================================
+2025-05-02 16:12:30 - root - INFO - Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2025-05-02 16:12:30 - root - INFO - Operating system: nt
+2025-05-02 16:12:30 - root - INFO - Log level: DEBUG
+2025-05-02 16:12:30 - root - INFO - Regular log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\sync.log
+2025-05-02 16:12:30 - root - INFO - Debug log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\debug.log
+2025-05-02 16:12:30 - root - INFO - Initializing sync manager...
+2025-05-02 16:12:30 - root - INFO - Sync options: {'check_only': False, 'test_mode': False, 'max_files': None, 'target_folder': None, 'root_only': True, 'force_full_sync': False, 'force_save_state': False}
+2025-05-02 16:12:30 - root - INFO - Loaded sync state from: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:12:30 - root - INFO - Last sync: 2025-05-02T16:10:42.541020
+2025-05-02 16:12:30 - root - INFO - Found 17 files in state
+2025-05-02 16:12:30 - root - INFO - Running in root-only mode (only files not in any folder)
+2025-05-02 16:12:30 - root - INFO - Using state file: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:12:30 - root - INFO - State file exists. Size: 3998 bytes
+2025-05-02 16:12:30 - root - INFO - Starting one-time sync
+2025-05-02 16:12:30 - root - INFO - Starting sync process in ROOT-ONLY mode (only files not in any folder)...
+2025-05-02 16:12:30 - root - INFO - Listing all files in the root of OneDrive...
+2025-05-02 16:12:31 - root - INFO - Found account in cache, attempting to get token silently
+2025-05-02 16:12:31 - root - INFO - Successfully acquired token from cache
+2025-05-02 16:12:32 - root - INFO - Found 17 files and 4 folders in the root
+2025-05-02 16:12:32 - root - INFO - Files in the root:
+2025-05-02 16:12:32 - root - INFO -   1. Book.xlsx (unknown size)
+2025-05-02 16:12:32 - root - INFO -   2. Document 1.docx (0.05 MB)
+2025-05-02 16:12:32 - root - INFO -   3. Document 2.docx (0.01 MB)
+2025-05-02 16:12:32 - root - INFO -   4. Document 3.docx (0.01 MB)
+2025-05-02 16:12:32 - root - INFO -   5. Document 4.docx (0.01 MB)
+2025-05-02 16:12:32 - root - INFO -   6. Document.docx (unknown size)
+2025-05-02 16:12:32 - root - INFO -   7. Document_test.docx (0.01 MB)
+2025-05-02 16:12:32 - root - INFO -   8. Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:12:32 - root - INFO -   9. IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:12:32 - root - INFO -   10. Presentation 1.pptx (unknown size)
+2025-05-02 16:12:32 - root - INFO -   11. Presentation 2.pptx (unknown size)
+2025-05-02 16:12:32 - root - INFO -   12. Presentation 3.pptx (0.03 MB)
+2025-05-02 16:12:32 - root - INFO -   13. Presentation.pptx (unknown size)
+2025-05-02 16:12:32 - root - INFO -   14. projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:12:32 - root - INFO -   15. projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:12:32 - root - INFO -   16. projectSynopsis.doc (0.21 MB)
+2025-05-02 16:12:32 - root - INFO -   17. projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:12:33 - root - INFO - Found 17 files to process
+2025-05-02 16:12:33 - root - INFO - Processing item 1/17...
+2025-05-02 16:12:33 - root - INFO - Found root item: Book.xlsx (File)
+2025-05-02 16:12:33 - root - INFO - Root file details: Book.xlsx (unknown size)
+2025-05-02 16:12:33 - root - INFO - File is unchanged: Book.xlsx
+2025-05-02 16:12:33 - root - INFO - Downloading file: Book.xlsx (unknown size)
+2025-05-02 16:12:34 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Book.xlsx
+2025-05-02 16:12:34 - root - INFO - Found root item: Document 1.docx (File)
+2025-05-02 16:12:34 - root - INFO - Root file details: Document 1.docx (0.05 MB)
+2025-05-02 16:12:34 - root - INFO - File is unchanged: Document 1.docx
+2025-05-02 16:12:34 - root - INFO - Downloading file: Document 1.docx (0.05 MB)
+2025-05-02 16:12:35 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 1.docx
+2025-05-02 16:12:35 - root - INFO - Found root item: Document 2.docx (File)
+2025-05-02 16:12:35 - root - INFO - Root file details: Document 2.docx (0.01 MB)
+2025-05-02 16:12:35 - root - INFO - File is unchanged: Document 2.docx
+2025-05-02 16:12:35 - root - INFO - Downloading file: Document 2.docx (0.01 MB)
+2025-05-02 16:12:35 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 2.docx
+2025-05-02 16:12:35 - root - INFO - Found root item: Document 3.docx (File)
+2025-05-02 16:12:35 - root - INFO - Root file details: Document 3.docx (0.01 MB)
+2025-05-02 16:12:35 - root - INFO - File is unchanged: Document 3.docx
+2025-05-02 16:12:35 - root - INFO - Downloading file: Document 3.docx (0.01 MB)
+2025-05-02 16:12:36 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 3.docx
+2025-05-02 16:12:36 - root - INFO - Found root item: Document 4.docx (File)
+2025-05-02 16:12:36 - root - INFO - Root file details: Document 4.docx (0.01 MB)
+2025-05-02 16:12:36 - root - INFO - File is unchanged: Document 4.docx
+2025-05-02 16:12:36 - root - INFO - Downloading file: Document 4.docx (0.01 MB)
+2025-05-02 16:12:37 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 4.docx
+2025-05-02 16:12:37 - root - INFO - Found root item: Document.docx (File)
+2025-05-02 16:12:37 - root - INFO - Root file details: Document.docx (unknown size)
+2025-05-02 16:12:37 - root - INFO - File is unchanged: Document.docx
+2025-05-02 16:12:37 - root - INFO - Downloading file: Document.docx (unknown size)
+2025-05-02 16:12:38 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document.docx
+2025-05-02 16:12:38 - root - INFO - Found root item: Document_test.docx (File)
+2025-05-02 16:12:38 - root - INFO - Root file details: Document_test.docx (0.01 MB)
+2025-05-02 16:12:38 - root - INFO - File is unchanged: Document_test.docx
+2025-05-02 16:12:38 - root - INFO - Downloading file: Document_test.docx (0.01 MB)
+2025-05-02 16:12:38 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document_test.docx
+2025-05-02 16:12:38 - root - INFO - Found root item: Getting started with OneDrive.pdf (File)
+2025-05-02 16:12:38 - root - INFO - Root file details: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:12:38 - root - INFO - File is unchanged: Getting started with OneDrive.pdf
+2025-05-02 16:12:38 - root - INFO - Downloading file: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:12:41 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Getting started with OneDrive.pdf
+2025-05-02 16:12:41 - root - INFO - Found root item: IP Synopsis Format.docx (File)
+2025-05-02 16:12:41 - root - INFO - Root file details: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:12:41 - root - INFO - File is unchanged: IP Synopsis Format.docx
+2025-05-02 16:12:41 - root - INFO - Downloading file: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:12:42 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\IP Synopsis Format.docx
+2025-05-02 16:12:42 - root - INFO - Found root item: Presentation 1.pptx (File)
+2025-05-02 16:12:42 - root - INFO - Root file details: Presentation 1.pptx (unknown size)
+2025-05-02 16:12:42 - root - INFO - File is unchanged: Presentation 1.pptx
+2025-05-02 16:12:42 - root - INFO - Downloading file: Presentation 1.pptx (unknown size)
+2025-05-02 16:13:01 - root - ERROR - Error downloading file Presentation 1.pptx: 503 Server Error: Service Unavailable for url: https://my.microsoftpersonalcontent.com/personal/2f747e44c0546758/_layouts/15/download.aspx?UniqueId=c0546758-7e44-2074-802f-e23602000000&Translate=false&tempauth=v1e.eyJzaXRlaWQiOiI0NDY4YmFhNS0zMGY0LTQ5MzAtYTY4YS0yZjJhZDliZTk3MjIiLCJhcHBfZGlzcGxheW5hbWUiOiJQdWJsaWNDbGllbnRTYW1wbGUgKERPIE5PVCBVU0UgSU4gUFJPRFVDVElPTikiLCJhcHBpZCI6IjRhMWFhMWQ1LWM1NjctNDlkMC1hZDBiLWNkOTU3YTQ3Zjg0MiIsImF1ZCI6IjAwMDAwMDAzLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMC9teS5taWNyb3NvZnRwZXJzb25hbGNvbnRlbnQuY29tQDkxODgwNDBkLTZjNjctNGM1Yi1iMTEyLTM2YTMwNGI2NmRhZCIsImV4cCI6IjE3NDYxODYxNTMifQ.UUy2BF32qYzNJn83IPnIYOz_D59iDjNJeQpuy5FWV0Ac0osQ2g5V8KjQ2fFkJdRjpzdBkdIOz9CKuCUee8mWl_YxzkQ2jFqKSqQA6gX9-b2PaQjqk9SrvqHfNlem9i094r153x0pJmcq34XhhjudlaVJ41eTV6RHEjpsf6AiihhHv-esfavyngeScrOO430BWLYvee5Ptt2TPiCr7J6YKawDpIWQPy1-FyF9DiwZBaLOOE3iUTOOikClRKm6nxXcCrr2gXXIR86HD12RvnSfdkox3ZzpCo5NEp98mU2OFxa7HZs0wfqILEaK-rRlqe5Z4dM080oOQVpg_Zim_KWTRreqbCBsNGgqLSYlBMZ_882mQ9cYsgbcJKwA0EIIBLLNsOLlD5PIWksNST-mkafJv6Q7MBbNU2TUXlFap55IpsNB8ImliacjJIEvdT7QauLnQcxcYL-h02-IDkA6n3AKHA.GCgsPSstr89SLiGOca_shFescFDblkp2qMXiMNEsuTQ&ApiVersion=2.0
+2025-05-02 16:13:01 - root - ERROR - Error handling file Presentation 1.pptx: 503 Server Error: Service Unavailable for url: https://my.microsoftpersonalcontent.com/personal/2f747e44c0546758/_layouts/15/download.aspx?UniqueId=c0546758-7e44-2074-802f-e23602000000&Translate=false&tempauth=v1e.eyJzaXRlaWQiOiI0NDY4YmFhNS0zMGY0LTQ5MzAtYTY4YS0yZjJhZDliZTk3MjIiLCJhcHBfZGlzcGxheW5hbWUiOiJQdWJsaWNDbGllbnRTYW1wbGUgKERPIE5PVCBVU0UgSU4gUFJPRFVDVElPTikiLCJhcHBpZCI6IjRhMWFhMWQ1LWM1NjctNDlkMC1hZDBiLWNkOTU3YTQ3Zjg0MiIsImF1ZCI6IjAwMDAwMDAzLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMC9teS5taWNyb3NvZnRwZXJzb25hbGNvbnRlbnQuY29tQDkxODgwNDBkLTZjNjctNGM1Yi1iMTEyLTM2YTMwNGI2NmRhZCIsImV4cCI6IjE3NDYxODYxNTMifQ.UUy2BF32qYzNJn83IPnIYOz_D59iDjNJeQpuy5FWV0Ac0osQ2g5V8KjQ2fFkJdRjpzdBkdIOz9CKuCUee8mWl_YxzkQ2jFqKSqQA6gX9-b2PaQjqk9SrvqHfNlem9i094r153x0pJmcq34XhhjudlaVJ41eTV6RHEjpsf6AiihhHv-esfavyngeScrOO430BWLYvee5Ptt2TPiCr7J6YKawDpIWQPy1-FyF9DiwZBaLOOE3iUTOOikClRKm6nxXcCrr2gXXIR86HD12RvnSfdkox3ZzpCo5NEp98mU2OFxa7HZs0wfqILEaK-rRlqe5Z4dM080oOQVpg_Zim_KWTRreqbCBsNGgqLSYlBMZ_882mQ9cYsgbcJKwA0EIIBLLNsOLlD5PIWksNST-mkafJv6Q7MBbNU2TUXlFap55IpsNB8ImliacjJIEvdT7QauLnQcxcYL-h02-IDkA6n3AKHA.GCgsPSstr89SLiGOca_shFescFDblkp2qMXiMNEsuTQ&ApiVersion=2.0
+2025-05-02 16:13:01 - root - INFO - Processing item 11/17...
+2025-05-02 16:13:01 - root - INFO - Found root item: Presentation 2.pptx (File)
+2025-05-02 16:13:01 - root - INFO - Root file details: Presentation 2.pptx (unknown size)
+2025-05-02 16:13:01 - root - INFO - File is unchanged: Presentation 2.pptx
+2025-05-02 16:13:01 - root - INFO - Downloading file: Presentation 2.pptx (unknown size)
+2025-05-02 16:13:02 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Presentation 2.pptx
+2025-05-02 16:13:02 - root - INFO - Found root item: Presentation 3.pptx (File)
+2025-05-02 16:13:02 - root - INFO - Root file details: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:13:02 - root - INFO - File is unchanged: Presentation 3.pptx
+2025-05-02 16:13:02 - root - INFO - Downloading file: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:13:03 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Presentation 3.pptx
+2025-05-02 16:13:03 - root - INFO - Found root item: Presentation.pptx (File)
+2025-05-02 16:13:03 - root - INFO - Root file details: Presentation.pptx (unknown size)
+2025-05-02 16:13:03 - root - INFO - File is unchanged: Presentation.pptx
+2025-05-02 16:13:03 - root - INFO - Downloading file: Presentation.pptx (unknown size)
+2025-05-02 16:13:04 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Presentation.pptx
+2025-05-02 16:13:04 - root - INFO - Found root item: projectSynopsis 1.doc (File)
+2025-05-02 16:13:04 - root - INFO - Root file details: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:13:04 - root - INFO - File is unchanged: projectSynopsis 1.doc
+2025-05-02 16:13:04 - root - INFO - Downloading file: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:13:05 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\projectSynopsis 1.doc
+2025-05-02 16:13:05 - root - INFO - Found root item: projectSynopsis 2.doc (File)
+2025-05-02 16:13:05 - root - INFO - Root file details: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:13:05 - root - INFO - File is unchanged: projectSynopsis 2.doc
+2025-05-02 16:13:05 - root - INFO - Downloading file: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:13:06 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\projectSynopsis 2.doc
+2025-05-02 16:13:06 - root - INFO - Found root item: projectSynopsis.doc (File)
+2025-05-02 16:13:06 - root - INFO - Root file details: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:13:06 - root - INFO - File is unchanged: projectSynopsis.doc
+2025-05-02 16:13:06 - root - INFO - Downloading file: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:13:07 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\projectSynopsis.doc
+2025-05-02 16:13:07 - root - INFO - Found root item: projectSynopsis.pptx (File)
+2025-05-02 16:13:07 - root - INFO - Root file details: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:13:07 - root - INFO - File is unchanged: projectSynopsis.pptx
+2025-05-02 16:13:07 - root - INFO - Downloading file: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:13:08 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\projectSynopsis.pptx
+2025-05-02 16:13:08 - root - INFO - Attempting to save sync state to: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:08 - root - INFO - Successfully saved sync state. File size: 3998 bytes
+2025-05-02 16:13:08 - root - INFO - Sync completed successfully in ROOT-ONLY mode
+2025-05-02 16:13:08 - root - INFO - Downloaded 16 files from the root directory
+2025-05-02 16:13:08 - root - INFO - Sync completed successfully
+2025-05-02 16:13:08 - root - INFO - Program completed successfully
+2025-05-02 16:13:42 - root - INFO - ================================================================================
+2025-05-02 16:13:42 - root - INFO -                     OneDrive Sync Tool for Individual Users                     
+2025-05-02 16:13:42 - root - INFO - ================================================================================
+2025-05-02 16:13:42 - root - INFO - Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2025-05-02 16:13:42 - root - INFO - Operating system: nt
+2025-05-02 16:13:42 - root - INFO - Log level: DEBUG
+2025-05-02 16:13:42 - root - INFO - Regular log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\sync.log
+2025-05-02 16:13:42 - root - INFO - Debug log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\debug.log
+2025-05-02 16:13:42 - root - INFO - Initializing sync manager...
+2025-05-02 16:13:42 - root - INFO - Sync options: {'check_only': False, 'test_mode': False, 'max_files': None, 'target_folder': None, 'root_only': True, 'force_full_sync': False, 'force_save_state': False}
+2025-05-02 16:13:42 - root - INFO - Loaded sync state from: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:42 - root - INFO - Last sync: 2025-05-02T16:13:08.514673
+2025-05-02 16:13:42 - root - INFO - Found 17 files in state
+2025-05-02 16:13:42 - root - INFO - Running in root-only mode (only files not in any folder)
+2025-05-02 16:13:42 - root - INFO - Using state file: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:42 - root - INFO - State file exists. Size: 3998 bytes
+2025-05-02 16:13:42 - root - INFO - Starting one-time sync
+2025-05-02 16:13:42 - root - INFO - Starting sync process in ROOT-ONLY mode (only files not in any folder)...
+2025-05-02 16:13:42 - root - INFO - Listing all files in the root of OneDrive...
+2025-05-02 16:13:42 - root - INFO - Found account in cache, attempting to get token silently
+2025-05-02 16:13:42 - root - INFO - Successfully acquired token from cache
+2025-05-02 16:13:43 - root - INFO - Found 17 files and 4 folders in the root
+2025-05-02 16:13:43 - root - INFO - Files in the root:
+2025-05-02 16:13:43 - root - INFO -   1. Book.xlsx (unknown size)
+2025-05-02 16:13:43 - root - INFO -   2. Document 1.docx (0.05 MB)
+2025-05-02 16:13:43 - root - INFO -   3. Document 2.docx (0.01 MB)
+2025-05-02 16:13:43 - root - INFO -   4. Document 3.docx (0.01 MB)
+2025-05-02 16:13:43 - root - INFO -   5. Document 4.docx (0.01 MB)
+2025-05-02 16:13:43 - root - INFO -   6. Document.docx (unknown size)
+2025-05-02 16:13:43 - root - INFO -   7. Document_test.docx (0.01 MB)
+2025-05-02 16:13:43 - root - INFO -   8. Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:13:43 - root - INFO -   9. IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:13:43 - root - INFO -   10. Presentation 1.pptx (unknown size)
+2025-05-02 16:13:43 - root - INFO -   11. Presentation 2.pptx (unknown size)
+2025-05-02 16:13:43 - root - INFO -   12. Presentation 3.pptx (0.03 MB)
+2025-05-02 16:13:43 - root - INFO -   13. Presentation.pptx (unknown size)
+2025-05-02 16:13:43 - root - INFO -   14. projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:13:43 - root - INFO -   15. projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:13:43 - root - INFO -   16. projectSynopsis.doc (0.21 MB)
+2025-05-02 16:13:43 - root - INFO -   17. projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:13:45 - root - INFO - Found 17 files to process
+2025-05-02 16:13:45 - root - INFO - Processing item 1/17...
+2025-05-02 16:13:45 - root - INFO - Found root item: Book.xlsx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Book.xlsx (unknown size)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Book.xlsx
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): Book.xlsx
+2025-05-02 16:13:45 - root - INFO - Found root item: Document 1.docx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Document 1.docx (0.05 MB)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Document 1.docx
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): Document 1.docx
+2025-05-02 16:13:45 - root - INFO - Found root item: Document 2.docx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Document 2.docx (0.01 MB)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Document 2.docx
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): Document 2.docx
+2025-05-02 16:13:45 - root - INFO - Found root item: Document 3.docx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Document 3.docx (0.01 MB)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Document 3.docx
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): Document 3.docx
+2025-05-02 16:13:45 - root - INFO - Found root item: Document 4.docx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Document 4.docx (0.01 MB)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Document 4.docx
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): Document 4.docx
+2025-05-02 16:13:45 - root - INFO - Found root item: Document.docx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Document.docx (unknown size)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Document.docx
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): Document.docx
+2025-05-02 16:13:45 - root - INFO - Found root item: Document_test.docx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Document_test.docx (0.01 MB)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Document_test.docx
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): Document_test.docx
+2025-05-02 16:13:45 - root - INFO - Found root item: Getting started with OneDrive.pdf (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Getting started with OneDrive.pdf
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): Getting started with OneDrive.pdf
+2025-05-02 16:13:45 - root - INFO - Found root item: IP Synopsis Format.docx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: IP Synopsis Format.docx
+2025-05-02 16:13:45 - root - INFO - Skipping file (up-to-date): IP Synopsis Format.docx
+2025-05-02 16:13:45 - root - INFO - Found root item: Presentation 1.pptx (File)
+2025-05-02 16:13:45 - root - INFO - Root file details: Presentation 1.pptx (unknown size)
+2025-05-02 16:13:45 - root - INFO - File is unchanged: Presentation 1.pptx
+2025-05-02 16:13:45 - root - INFO - Downloading file: Presentation 1.pptx (unknown size)
+2025-05-02 16:13:46 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Presentation 1.pptx
+2025-05-02 16:13:46 - root - INFO - Processing item 11/17...
+2025-05-02 16:13:46 - root - INFO - Found root item: Presentation 2.pptx (File)
+2025-05-02 16:13:46 - root - INFO - Root file details: Presentation 2.pptx (unknown size)
+2025-05-02 16:13:46 - root - INFO - File is unchanged: Presentation 2.pptx
+2025-05-02 16:13:46 - root - INFO - Skipping file (up-to-date): Presentation 2.pptx
+2025-05-02 16:13:46 - root - INFO - Found root item: Presentation 3.pptx (File)
+2025-05-02 16:13:46 - root - INFO - Root file details: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:13:46 - root - INFO - File is unchanged: Presentation 3.pptx
+2025-05-02 16:13:46 - root - INFO - Skipping file (up-to-date): Presentation 3.pptx
+2025-05-02 16:13:46 - root - INFO - Found root item: Presentation.pptx (File)
+2025-05-02 16:13:46 - root - INFO - Root file details: Presentation.pptx (unknown size)
+2025-05-02 16:13:46 - root - INFO - File is unchanged: Presentation.pptx
+2025-05-02 16:13:46 - root - INFO - Skipping file (up-to-date): Presentation.pptx
+2025-05-02 16:13:46 - root - INFO - Found root item: projectSynopsis 1.doc (File)
+2025-05-02 16:13:46 - root - INFO - Root file details: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:13:46 - root - INFO - File is unchanged: projectSynopsis 1.doc
+2025-05-02 16:13:46 - root - INFO - Skipping file (up-to-date): projectSynopsis 1.doc
+2025-05-02 16:13:46 - root - INFO - Found root item: projectSynopsis 2.doc (File)
+2025-05-02 16:13:46 - root - INFO - Root file details: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:13:46 - root - INFO - File is unchanged: projectSynopsis 2.doc
+2025-05-02 16:13:46 - root - INFO - Skipping file (up-to-date): projectSynopsis 2.doc
+2025-05-02 16:13:46 - root - INFO - Found root item: projectSynopsis.doc (File)
+2025-05-02 16:13:46 - root - INFO - Root file details: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:13:46 - root - INFO - File is unchanged: projectSynopsis.doc
+2025-05-02 16:13:46 - root - INFO - Skipping file (up-to-date): projectSynopsis.doc
+2025-05-02 16:13:46 - root - INFO - Found root item: projectSynopsis.pptx (File)
+2025-05-02 16:13:46 - root - INFO - Root file details: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:13:46 - root - INFO - File is unchanged: projectSynopsis.pptx
+2025-05-02 16:13:46 - root - INFO - Skipping file (up-to-date): projectSynopsis.pptx
+2025-05-02 16:13:46 - root - INFO - Attempting to save sync state to: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:46 - root - INFO - Successfully saved sync state. File size: 3998 bytes
+2025-05-02 16:13:46 - root - INFO - Sync completed successfully in ROOT-ONLY mode
+2025-05-02 16:13:46 - root - INFO - Downloaded 1 files from the root directory
+2025-05-02 16:13:46 - root - INFO - Sync completed successfully
+2025-05-02 16:13:46 - root - INFO - Program completed successfully
+2025-05-02 16:13:52 - root - INFO - ================================================================================
+2025-05-02 16:13:52 - root - INFO -                     OneDrive Sync Tool for Individual Users                     
+2025-05-02 16:13:52 - root - INFO - ================================================================================
+2025-05-02 16:13:52 - root - INFO - Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2025-05-02 16:13:52 - root - INFO - Operating system: nt
+2025-05-02 16:13:52 - root - INFO - Log level: DEBUG
+2025-05-02 16:13:52 - root - INFO - Regular log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\sync.log
+2025-05-02 16:13:52 - root - INFO - Debug log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\debug.log
+2025-05-02 16:13:52 - root - INFO - Initializing sync manager...
+2025-05-02 16:13:52 - root - INFO - Sync options: {'check_only': False, 'test_mode': False, 'max_files': None, 'target_folder': None, 'root_only': True, 'force_full_sync': False, 'force_save_state': False}
+2025-05-02 16:13:52 - root - INFO - Loaded sync state from: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:52 - root - INFO - Last sync: 2025-05-02T16:13:46.859079
+2025-05-02 16:13:52 - root - INFO - Found 17 files in state
+2025-05-02 16:13:52 - root - INFO - Running in root-only mode (only files not in any folder)
+2025-05-02 16:13:52 - root - INFO - Using state file: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:52 - root - INFO - State file exists. Size: 3998 bytes
+2025-05-02 16:13:52 - root - INFO - Starting one-time sync
+2025-05-02 16:13:52 - root - INFO - Starting sync process in ROOT-ONLY mode (only files not in any folder)...
+2025-05-02 16:13:52 - root - INFO - Listing all files in the root of OneDrive...
+2025-05-02 16:13:52 - root - INFO - Found account in cache, attempting to get token silently
+2025-05-02 16:13:52 - root - INFO - Successfully acquired token from cache
+2025-05-02 16:13:53 - root - INFO - Found 17 files and 4 folders in the root
+2025-05-02 16:13:53 - root - INFO - Files in the root:
+2025-05-02 16:13:53 - root - INFO -   1. Book.xlsx (unknown size)
+2025-05-02 16:13:53 - root - INFO -   2. Document 1.docx (0.05 MB)
+2025-05-02 16:13:53 - root - INFO -   3. Document 2.docx (0.01 MB)
+2025-05-02 16:13:53 - root - INFO -   4. Document 3.docx (0.01 MB)
+2025-05-02 16:13:53 - root - INFO -   5. Document 4.docx (0.01 MB)
+2025-05-02 16:13:53 - root - INFO -   6. Document.docx (unknown size)
+2025-05-02 16:13:53 - root - INFO -   7. Document_test.docx (0.01 MB)
+2025-05-02 16:13:53 - root - INFO -   8. Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:13:53 - root - INFO -   9. IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:13:53 - root - INFO -   10. Presentation 1.pptx (unknown size)
+2025-05-02 16:13:53 - root - INFO -   11. Presentation 2.pptx (unknown size)
+2025-05-02 16:13:53 - root - INFO -   12. Presentation 3.pptx (0.03 MB)
+2025-05-02 16:13:53 - root - INFO -   13. Presentation.pptx (unknown size)
+2025-05-02 16:13:53 - root - INFO -   14. projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:13:53 - root - INFO -   15. projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:13:53 - root - INFO -   16. projectSynopsis.doc (0.21 MB)
+2025-05-02 16:13:53 - root - INFO -   17. projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:13:54 - root - INFO - Found 17 files to process
+2025-05-02 16:13:54 - root - INFO - Processing item 1/17...
+2025-05-02 16:13:54 - root - INFO - Found root item: Book.xlsx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Book.xlsx (unknown size)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Book.xlsx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Book.xlsx
+2025-05-02 16:13:54 - root - INFO - Found root item: Document 1.docx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Document 1.docx (0.05 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Document 1.docx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Document 1.docx
+2025-05-02 16:13:54 - root - INFO - Found root item: Document 2.docx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Document 2.docx (0.01 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Document 2.docx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Document 2.docx
+2025-05-02 16:13:54 - root - INFO - Found root item: Document 3.docx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Document 3.docx (0.01 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Document 3.docx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Document 3.docx
+2025-05-02 16:13:54 - root - INFO - Found root item: Document 4.docx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Document 4.docx (0.01 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Document 4.docx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Document 4.docx
+2025-05-02 16:13:54 - root - INFO - Found root item: Document.docx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Document.docx (unknown size)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Document.docx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Document.docx
+2025-05-02 16:13:54 - root - INFO - Found root item: Document_test.docx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Document_test.docx (0.01 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Document_test.docx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Document_test.docx
+2025-05-02 16:13:54 - root - INFO - Found root item: Getting started with OneDrive.pdf (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Getting started with OneDrive.pdf
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Getting started with OneDrive.pdf
+2025-05-02 16:13:54 - root - INFO - Found root item: IP Synopsis Format.docx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: IP Synopsis Format.docx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): IP Synopsis Format.docx
+2025-05-02 16:13:54 - root - INFO - Found root item: Presentation 1.pptx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Presentation 1.pptx (unknown size)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Presentation 1.pptx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Presentation 1.pptx
+2025-05-02 16:13:54 - root - INFO - Processing item 11/17...
+2025-05-02 16:13:54 - root - INFO - Found root item: Presentation 2.pptx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Presentation 2.pptx (unknown size)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Presentation 2.pptx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Presentation 2.pptx
+2025-05-02 16:13:54 - root - INFO - Found root item: Presentation 3.pptx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Presentation 3.pptx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Presentation 3.pptx
+2025-05-02 16:13:54 - root - INFO - Found root item: Presentation.pptx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: Presentation.pptx (unknown size)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: Presentation.pptx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): Presentation.pptx
+2025-05-02 16:13:54 - root - INFO - Found root item: projectSynopsis 1.doc (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: projectSynopsis 1.doc
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): projectSynopsis 1.doc
+2025-05-02 16:13:54 - root - INFO - Found root item: projectSynopsis 2.doc (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: projectSynopsis 2.doc
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): projectSynopsis 2.doc
+2025-05-02 16:13:54 - root - INFO - Found root item: projectSynopsis.doc (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: projectSynopsis.doc
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): projectSynopsis.doc
+2025-05-02 16:13:54 - root - INFO - Found root item: projectSynopsis.pptx (File)
+2025-05-02 16:13:54 - root - INFO - Root file details: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:13:54 - root - INFO - File is unchanged: projectSynopsis.pptx
+2025-05-02 16:13:54 - root - INFO - Skipping file (up-to-date): projectSynopsis.pptx
+2025-05-02 16:13:54 - root - INFO - Attempting to save sync state to: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:54 - root - INFO - Successfully saved sync state. File size: 3998 bytes
+2025-05-02 16:13:54 - root - INFO - Sync completed successfully in ROOT-ONLY mode
+2025-05-02 16:13:54 - root - INFO - Downloaded 0 files from the root directory
+2025-05-02 16:13:54 - root - INFO - Sync completed successfully
+2025-05-02 16:13:54 - root - INFO - Program completed successfully
+2025-05-02 16:13:57 - root - INFO - ================================================================================
+2025-05-02 16:13:57 - root - INFO -                     OneDrive Sync Tool for Individual Users                     
+2025-05-02 16:13:57 - root - INFO - ================================================================================
+2025-05-02 16:13:57 - root - INFO - Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2025-05-02 16:13:57 - root - INFO - Operating system: nt
+2025-05-02 16:13:57 - root - INFO - Log level: DEBUG
+2025-05-02 16:13:57 - root - INFO - Regular log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\sync.log
+2025-05-02 16:13:57 - root - INFO - Debug log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\debug.log
+2025-05-02 16:13:57 - root - INFO - Initializing sync manager...
+2025-05-02 16:13:57 - root - INFO - Sync options: {'check_only': False, 'test_mode': False, 'max_files': None, 'target_folder': None, 'root_only': True, 'force_full_sync': False, 'force_save_state': False}
+2025-05-02 16:13:57 - root - INFO - Loaded sync state from: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:57 - root - INFO - Last sync: 2025-05-02T16:13:54.739772
+2025-05-02 16:13:57 - root - INFO - Found 17 files in state
+2025-05-02 16:13:57 - root - INFO - Running in root-only mode (only files not in any folder)
+2025-05-02 16:13:57 - root - INFO - Using state file: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:13:57 - root - INFO - State file exists. Size: 3998 bytes
+2025-05-02 16:13:57 - root - INFO - Starting one-time sync
+2025-05-02 16:13:57 - root - INFO - Starting sync process in ROOT-ONLY mode (only files not in any folder)...
+2025-05-02 16:13:57 - root - INFO - Listing all files in the root of OneDrive...
+2025-05-02 16:13:58 - root - INFO - Found account in cache, attempting to get token silently
+2025-05-02 16:13:58 - root - INFO - Successfully acquired token from cache
+2025-05-02 16:13:59 - root - INFO - Found 17 files and 4 folders in the root
+2025-05-02 16:13:59 - root - INFO - Files in the root:
+2025-05-02 16:13:59 - root - INFO -   1. Book.xlsx (unknown size)
+2025-05-02 16:13:59 - root - INFO -   2. Document 1.docx (0.05 MB)
+2025-05-02 16:13:59 - root - INFO -   3. Document 2.docx (0.01 MB)
+2025-05-02 16:13:59 - root - INFO -   4. Document 3.docx (0.01 MB)
+2025-05-02 16:13:59 - root - INFO -   5. Document 4.docx (0.01 MB)
+2025-05-02 16:13:59 - root - INFO -   6. Document.docx (unknown size)
+2025-05-02 16:13:59 - root - INFO -   7. Document_test.docx (0.01 MB)
+2025-05-02 16:13:59 - root - INFO -   8. Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:13:59 - root - INFO -   9. IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:13:59 - root - INFO -   10. Presentation 1.pptx (unknown size)
+2025-05-02 16:13:59 - root - INFO -   11. Presentation 2.pptx (unknown size)
+2025-05-02 16:13:59 - root - INFO -   12. Presentation 3.pptx (0.03 MB)
+2025-05-02 16:13:59 - root - INFO -   13. Presentation.pptx (unknown size)
+2025-05-02 16:13:59 - root - INFO -   14. projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:13:59 - root - INFO -   15. projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:13:59 - root - INFO -   16. projectSynopsis.doc (0.21 MB)
+2025-05-02 16:13:59 - root - INFO -   17. projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:14:01 - root - INFO - Found 17 files to process
+2025-05-02 16:14:01 - root - INFO - Processing item 1/17...
+2025-05-02 16:14:01 - root - INFO - Found root item: Book.xlsx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Book.xlsx (unknown size)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Book.xlsx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Book.xlsx
+2025-05-02 16:14:01 - root - INFO - Found root item: Document 1.docx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Document 1.docx (0.05 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Document 1.docx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Document 1.docx
+2025-05-02 16:14:01 - root - INFO - Found root item: Document 2.docx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Document 2.docx (0.01 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Document 2.docx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Document 2.docx
+2025-05-02 16:14:01 - root - INFO - Found root item: Document 3.docx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Document 3.docx (0.01 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Document 3.docx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Document 3.docx
+2025-05-02 16:14:01 - root - INFO - Found root item: Document 4.docx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Document 4.docx (0.01 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Document 4.docx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Document 4.docx
+2025-05-02 16:14:01 - root - INFO - Found root item: Document.docx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Document.docx (unknown size)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Document.docx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Document.docx
+2025-05-02 16:14:01 - root - INFO - Found root item: Document_test.docx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Document_test.docx (0.01 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Document_test.docx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Document_test.docx
+2025-05-02 16:14:01 - root - INFO - Found root item: Getting started with OneDrive.pdf (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Getting started with OneDrive.pdf
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Getting started with OneDrive.pdf
+2025-05-02 16:14:01 - root - INFO - Found root item: IP Synopsis Format.docx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: IP Synopsis Format.docx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): IP Synopsis Format.docx
+2025-05-02 16:14:01 - root - INFO - Found root item: Presentation 1.pptx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Presentation 1.pptx (unknown size)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Presentation 1.pptx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Presentation 1.pptx
+2025-05-02 16:14:01 - root - INFO - Processing item 11/17...
+2025-05-02 16:14:01 - root - INFO - Found root item: Presentation 2.pptx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Presentation 2.pptx (unknown size)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Presentation 2.pptx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Presentation 2.pptx
+2025-05-02 16:14:01 - root - INFO - Found root item: Presentation 3.pptx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Presentation 3.pptx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Presentation 3.pptx
+2025-05-02 16:14:01 - root - INFO - Found root item: Presentation.pptx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: Presentation.pptx (unknown size)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: Presentation.pptx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): Presentation.pptx
+2025-05-02 16:14:01 - root - INFO - Found root item: projectSynopsis 1.doc (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: projectSynopsis 1.doc
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): projectSynopsis 1.doc
+2025-05-02 16:14:01 - root - INFO - Found root item: projectSynopsis 2.doc (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: projectSynopsis 2.doc
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): projectSynopsis 2.doc
+2025-05-02 16:14:01 - root - INFO - Found root item: projectSynopsis.doc (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: projectSynopsis.doc
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): projectSynopsis.doc
+2025-05-02 16:14:01 - root - INFO - Found root item: projectSynopsis.pptx (File)
+2025-05-02 16:14:01 - root - INFO - Root file details: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:14:01 - root - INFO - File is unchanged: projectSynopsis.pptx
+2025-05-02 16:14:01 - root - INFO - Skipping file (up-to-date): projectSynopsis.pptx
+2025-05-02 16:14:01 - root - INFO - Attempting to save sync state to: C:\Users\ASUS\onedrive_sync_state.json
+2025-05-02 16:14:01 - root - INFO - Successfully saved sync state. File size: 3998 bytes
+2025-05-02 16:14:01 - root - INFO - Sync completed successfully in ROOT-ONLY mode
+2025-05-02 16:14:01 - root - INFO - Downloaded 0 files from the root directory
+2025-05-02 16:14:01 - root - INFO - Sync completed successfully
+2025-05-02 16:14:01 - root - INFO - Program completed successfully
+2025-05-02 16:19:42 - root - INFO - ================================================================================
+2025-05-02 16:19:42 - root - INFO -                     OneDrive Sync Tool for Individual Users                     
+2025-05-02 16:19:42 - root - INFO - ================================================================================
+2025-05-02 16:19:42 - root - INFO - Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2025-05-02 16:19:42 - root - INFO - Operating system: nt
+2025-05-02 16:19:42 - root - INFO - Log level: DEBUG
+2025-05-02 16:19:42 - root - INFO - Regular log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\sync.log
+2025-05-02 16:19:42 - root - INFO - Debug log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\debug.log
+2025-05-02 16:19:42 - root - INFO - Initializing sync manager...
+2025-05-02 16:19:42 - root - INFO - Sync options: {'check_only': False, 'test_mode': False, 'max_files': None, 'target_folder': None, 'root_only': True, 'force_full_sync': False, 'force_save_state': False}
+2025-05-02 16:19:42 - root - INFO - No state file found at: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:19:42 - root - INFO - Will perform full sync.
+2025-05-02 16:19:42 - root - INFO - Running in root-only mode (only files not in any folder)
+2025-05-02 16:19:42 - root - INFO - Using state file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:19:42 - root - INFO - State file does not exist yet. Will be created after successful sync.
+2025-05-02 16:19:42 - root - INFO - Starting one-time sync
+2025-05-02 16:19:42 - root - INFO - Starting sync process in ROOT-ONLY mode (only files not in any folder)...
+2025-05-02 16:19:42 - root - INFO - Listing all files in the root of OneDrive...
+2025-05-02 16:19:43 - root - INFO - Found account in cache, attempting to get token silently
+2025-05-02 16:19:43 - root - INFO - Successfully acquired token from cache
+2025-05-02 16:19:44 - root - INFO - Found 17 files and 4 folders in the root
+2025-05-02 16:19:44 - root - INFO - Files in the root:
+2025-05-02 16:19:44 - root - INFO -   1. Book.xlsx (unknown size)
+2025-05-02 16:19:44 - root - INFO -   2. Document 1.docx (0.05 MB)
+2025-05-02 16:19:44 - root - INFO -   3. Document 2.docx (0.01 MB)
+2025-05-02 16:19:44 - root - INFO -   4. Document 3.docx (0.01 MB)
+2025-05-02 16:19:44 - root - INFO -   5. Document 4.docx (0.01 MB)
+2025-05-02 16:19:44 - root - INFO -   6. Document.docx (unknown size)
+2025-05-02 16:19:44 - root - INFO -   7. Document_test.docx (0.01 MB)
+2025-05-02 16:19:44 - root - INFO -   8. Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:19:44 - root - INFO -   9. IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:19:44 - root - INFO -   10. Presentation 1.pptx (unknown size)
+2025-05-02 16:19:44 - root - INFO -   11. Presentation 2.pptx (unknown size)
+2025-05-02 16:19:44 - root - INFO -   12. Presentation 3.pptx (0.03 MB)
+2025-05-02 16:19:44 - root - INFO -   13. Presentation.pptx (unknown size)
+2025-05-02 16:19:44 - root - INFO -   14. projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:19:44 - root - INFO -   15. projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:19:44 - root - INFO -   16. projectSynopsis.doc (0.21 MB)
+2025-05-02 16:19:44 - root - INFO -   17. projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:19:46 - root - INFO - Found 17 files to process
+2025-05-02 16:19:46 - root - INFO - Processing item 1/17...
+2025-05-02 16:19:46 - root - INFO - Found root item: Book.xlsx (File)
+2025-05-02 16:19:46 - root - INFO - Root file details: Book.xlsx (unknown size)
+2025-05-02 16:19:46 - root - INFO - New file found: Book.xlsx
+2025-05-02 16:19:46 - root - INFO - Downloading file: Book.xlsx (unknown size)
+2025-05-02 16:19:46 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Book.xlsx
+2025-05-02 16:19:46 - root - INFO - Found root item: Document 1.docx (File)
+2025-05-02 16:19:46 - root - INFO - Root file details: Document 1.docx (0.05 MB)
+2025-05-02 16:19:46 - root - INFO - New file found: Document 1.docx
+2025-05-02 16:19:46 - root - INFO - Downloading file: Document 1.docx (0.05 MB)
+2025-05-02 16:19:47 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 1.docx
+2025-05-02 16:19:47 - root - INFO - Found root item: Document 2.docx (File)
+2025-05-02 16:19:47 - root - INFO - Root file details: Document 2.docx (0.01 MB)
+2025-05-02 16:19:47 - root - INFO - New file found: Document 2.docx
+2025-05-02 16:19:47 - root - INFO - Downloading file: Document 2.docx (0.01 MB)
+2025-05-02 16:19:47 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 2.docx
+2025-05-02 16:19:47 - root - INFO - Found root item: Document 3.docx (File)
+2025-05-02 16:19:47 - root - INFO - Root file details: Document 3.docx (0.01 MB)
+2025-05-02 16:19:47 - root - INFO - New file found: Document 3.docx
+2025-05-02 16:19:47 - root - INFO - Downloading file: Document 3.docx (0.01 MB)
+2025-05-02 16:19:48 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 3.docx
+2025-05-02 16:19:48 - root - INFO - Found root item: Document 4.docx (File)
+2025-05-02 16:19:48 - root - INFO - Root file details: Document 4.docx (0.01 MB)
+2025-05-02 16:19:48 - root - INFO - New file found: Document 4.docx
+2025-05-02 16:19:48 - root - INFO - Downloading file: Document 4.docx (0.01 MB)
+2025-05-02 16:19:49 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 4.docx
+2025-05-02 16:19:49 - root - INFO - Found root item: Document.docx (File)
+2025-05-02 16:19:49 - root - INFO - Root file details: Document.docx (unknown size)
+2025-05-02 16:19:49 - root - INFO - New file found: Document.docx
+2025-05-02 16:19:49 - root - INFO - Downloading file: Document.docx (unknown size)
+2025-05-02 16:19:49 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document.docx
+2025-05-02 16:19:49 - root - INFO - Found root item: Document_test.docx (File)
+2025-05-02 16:19:49 - root - INFO - Root file details: Document_test.docx (0.01 MB)
+2025-05-02 16:19:49 - root - INFO - New file found: Document_test.docx
+2025-05-02 16:19:49 - root - INFO - Downloading file: Document_test.docx (0.01 MB)
+2025-05-02 16:19:50 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document_test.docx
+2025-05-02 16:19:50 - root - INFO - Found root item: Getting started with OneDrive.pdf (File)
+2025-05-02 16:19:50 - root - INFO - Root file details: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:19:50 - root - INFO - New file found: Getting started with OneDrive.pdf
+2025-05-02 16:19:50 - root - INFO - Downloading file: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:19:51 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Getting started with OneDrive.pdf
+2025-05-02 16:19:51 - root - INFO - Found root item: IP Synopsis Format.docx (File)
+2025-05-02 16:19:51 - root - INFO - Root file details: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:19:51 - root - INFO - New file found: IP Synopsis Format.docx
+2025-05-02 16:19:51 - root - INFO - Downloading file: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:19:52 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\IP Synopsis Format.docx
+2025-05-02 16:19:52 - root - INFO - Found root item: Presentation 1.pptx (File)
+2025-05-02 16:19:52 - root - INFO - Root file details: Presentation 1.pptx (unknown size)
+2025-05-02 16:19:52 - root - INFO - New file found: Presentation 1.pptx
+2025-05-02 16:19:52 - root - INFO - Downloading file: Presentation 1.pptx (unknown size)
+2025-05-02 16:19:53 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Presentation 1.pptx
+2025-05-02 16:19:53 - root - INFO - Processing item 11/17...
+2025-05-02 16:19:53 - root - INFO - Found root item: Presentation 2.pptx (File)
+2025-05-02 16:19:53 - root - INFO - Root file details: Presentation 2.pptx (unknown size)
+2025-05-02 16:19:53 - root - INFO - New file found: Presentation 2.pptx
+2025-05-02 16:19:53 - root - INFO - Downloading file: Presentation 2.pptx (unknown size)
+2025-05-02 16:19:54 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Presentation 2.pptx
+2025-05-02 16:19:54 - root - INFO - Found root item: Presentation 3.pptx (File)
+2025-05-02 16:19:54 - root - INFO - Root file details: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:19:54 - root - INFO - New file found: Presentation 3.pptx
+2025-05-02 16:19:54 - root - INFO - Downloading file: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:19:54 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Presentation 3.pptx
+2025-05-02 16:19:54 - root - INFO - Found root item: Presentation.pptx (File)
+2025-05-02 16:19:54 - root - INFO - Root file details: Presentation.pptx (unknown size)
+2025-05-02 16:19:54 - root - INFO - New file found: Presentation.pptx
+2025-05-02 16:19:54 - root - INFO - Downloading file: Presentation.pptx (unknown size)
+2025-05-02 16:19:55 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Presentation.pptx
+2025-05-02 16:19:55 - root - INFO - Found root item: projectSynopsis 1.doc (File)
+2025-05-02 16:19:55 - root - INFO - Root file details: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:19:55 - root - INFO - New file found: projectSynopsis 1.doc
+2025-05-02 16:19:55 - root - INFO - Downloading file: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:19:56 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\projectSynopsis 1.doc
+2025-05-02 16:19:56 - root - INFO - Found root item: projectSynopsis 2.doc (File)
+2025-05-02 16:19:56 - root - INFO - Root file details: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:19:56 - root - INFO - New file found: projectSynopsis 2.doc
+2025-05-02 16:19:56 - root - INFO - Downloading file: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:19:57 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\projectSynopsis 2.doc
+2025-05-02 16:19:57 - root - INFO - Found root item: projectSynopsis.doc (File)
+2025-05-02 16:19:57 - root - INFO - Root file details: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:19:57 - root - INFO - New file found: projectSynopsis.doc
+2025-05-02 16:19:57 - root - INFO - Downloading file: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:19:58 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\projectSynopsis.doc
+2025-05-02 16:19:58 - root - INFO - Found root item: projectSynopsis.pptx (File)
+2025-05-02 16:19:58 - root - INFO - Root file details: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:19:58 - root - INFO - New file found: projectSynopsis.pptx
+2025-05-02 16:19:58 - root - INFO - Downloading file: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:20:00 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\projectSynopsis.pptx
+2025-05-02 16:20:00 - root - INFO - Attempting to save sync state to: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:20:00 - root - INFO - Successfully saved sync state. File size: 3998 bytes
+2025-05-02 16:20:00 - root - INFO - Sync completed successfully in ROOT-ONLY mode
+2025-05-02 16:20:00 - root - INFO - Downloaded 17 files from the root directory
+2025-05-02 16:20:00 - root - INFO - Sync completed successfully
+2025-05-02 16:20:00 - root - INFO - Program completed successfully
+2025-05-02 16:20:10 - root - INFO - ================================================================================
+2025-05-02 16:20:10 - root - INFO -                     OneDrive Sync Tool for Individual Users                     
+2025-05-02 16:20:10 - root - INFO - ================================================================================
+2025-05-02 16:20:10 - root - INFO - Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2025-05-02 16:20:10 - root - INFO - Operating system: nt
+2025-05-02 16:20:10 - root - INFO - Log level: DEBUG
+2025-05-02 16:20:10 - root - INFO - Regular log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\sync.log
+2025-05-02 16:20:10 - root - INFO - Debug log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\debug.log
+2025-05-02 16:20:10 - root - INFO - Initializing sync manager...
+2025-05-02 16:20:10 - root - INFO - Sync options: {'check_only': False, 'test_mode': False, 'max_files': None, 'target_folder': None, 'root_only': True, 'force_full_sync': False, 'force_save_state': False}
+2025-05-02 16:20:10 - root - INFO - Loaded sync state from: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:20:10 - root - INFO - Last sync: 2025-05-02T16:20:00.140308
+2025-05-02 16:20:10 - root - INFO - Found 17 files in state
+2025-05-02 16:20:10 - root - INFO - Running in root-only mode (only files not in any folder)
+2025-05-02 16:20:10 - root - INFO - Using state file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:20:10 - root - INFO - State file exists. Size: 3998 bytes
+2025-05-02 16:20:10 - root - INFO - Starting one-time sync
+2025-05-02 16:20:10 - root - INFO - Starting sync process in ROOT-ONLY mode (only files not in any folder)...
+2025-05-02 16:20:10 - root - INFO - Listing all files in the root of OneDrive...
+2025-05-02 16:20:10 - root - INFO - Found account in cache, attempting to get token silently
+2025-05-02 16:20:10 - root - INFO - Successfully acquired token from cache
+2025-05-02 16:20:12 - root - INFO - Found 17 files and 4 folders in the root
+2025-05-02 16:20:12 - root - INFO - Files in the root:
+2025-05-02 16:20:12 - root - INFO -   1. Book.xlsx (unknown size)
+2025-05-02 16:20:12 - root - INFO -   2. Document 1.docx (0.05 MB)
+2025-05-02 16:20:12 - root - INFO -   3. Document 2.docx (0.01 MB)
+2025-05-02 16:20:12 - root - INFO -   4. Document 3.docx (0.01 MB)
+2025-05-02 16:20:12 - root - INFO -   5. Document 4.docx (0.01 MB)
+2025-05-02 16:20:12 - root - INFO -   6. Document.docx (unknown size)
+2025-05-02 16:20:12 - root - INFO -   7. Document_test.docx (0.01 MB)
+2025-05-02 16:20:12 - root - INFO -   8. Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:20:12 - root - INFO -   9. IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:20:12 - root - INFO -   10. Presentation 1.pptx (unknown size)
+2025-05-02 16:20:12 - root - INFO -   11. Presentation 2.pptx (unknown size)
+2025-05-02 16:20:12 - root - INFO -   12. Presentation 3.pptx (0.03 MB)
+2025-05-02 16:20:12 - root - INFO -   13. Presentation.pptx (unknown size)
+2025-05-02 16:20:12 - root - INFO -   14. projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:20:12 - root - INFO -   15. projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:20:13 - root - INFO -   16. projectSynopsis.doc (0.21 MB)
+2025-05-02 16:20:13 - root - INFO -   17. projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:20:14 - root - INFO - Found 17 files to process
+2025-05-02 16:20:14 - root - INFO - Processing item 1/17...
+2025-05-02 16:20:14 - root - INFO - Found root item: Book.xlsx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Book.xlsx (unknown size)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Book.xlsx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Book.xlsx
+2025-05-02 16:20:14 - root - INFO - Found root item: Document 1.docx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Document 1.docx (0.05 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Document 1.docx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Document 1.docx
+2025-05-02 16:20:14 - root - INFO - Found root item: Document 2.docx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Document 2.docx (0.01 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Document 2.docx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Document 2.docx
+2025-05-02 16:20:14 - root - INFO - Found root item: Document 3.docx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Document 3.docx (0.01 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Document 3.docx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Document 3.docx
+2025-05-02 16:20:14 - root - INFO - Found root item: Document 4.docx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Document 4.docx (0.01 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Document 4.docx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Document 4.docx
+2025-05-02 16:20:14 - root - INFO - Found root item: Document.docx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Document.docx (unknown size)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Document.docx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Document.docx
+2025-05-02 16:20:14 - root - INFO - Found root item: Document_test.docx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Document_test.docx (0.01 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Document_test.docx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Document_test.docx
+2025-05-02 16:20:14 - root - INFO - Found root item: Getting started with OneDrive.pdf (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Getting started with OneDrive.pdf
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Getting started with OneDrive.pdf
+2025-05-02 16:20:14 - root - INFO - Found root item: IP Synopsis Format.docx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: IP Synopsis Format.docx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): IP Synopsis Format.docx
+2025-05-02 16:20:14 - root - INFO - Found root item: Presentation 1.pptx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Presentation 1.pptx (unknown size)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Presentation 1.pptx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Presentation 1.pptx
+2025-05-02 16:20:14 - root - INFO - Processing item 11/17...
+2025-05-02 16:20:14 - root - INFO - Found root item: Presentation 2.pptx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Presentation 2.pptx (unknown size)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Presentation 2.pptx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Presentation 2.pptx
+2025-05-02 16:20:14 - root - INFO - Found root item: Presentation 3.pptx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Presentation 3.pptx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Presentation 3.pptx
+2025-05-02 16:20:14 - root - INFO - Found root item: Presentation.pptx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: Presentation.pptx (unknown size)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: Presentation.pptx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): Presentation.pptx
+2025-05-02 16:20:14 - root - INFO - Found root item: projectSynopsis 1.doc (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: projectSynopsis 1.doc
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): projectSynopsis 1.doc
+2025-05-02 16:20:14 - root - INFO - Found root item: projectSynopsis 2.doc (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: projectSynopsis 2.doc
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): projectSynopsis 2.doc
+2025-05-02 16:20:14 - root - INFO - Found root item: projectSynopsis.doc (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: projectSynopsis.doc
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): projectSynopsis.doc
+2025-05-02 16:20:14 - root - INFO - Found root item: projectSynopsis.pptx (File)
+2025-05-02 16:20:14 - root - INFO - Root file details: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:20:14 - root - INFO - File is unchanged: projectSynopsis.pptx
+2025-05-02 16:20:14 - root - INFO - Skipping file (up-to-date): projectSynopsis.pptx
+2025-05-02 16:20:14 - root - INFO - Attempting to save sync state to: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:20:14 - root - INFO - Successfully saved sync state. File size: 3998 bytes
+2025-05-02 16:20:14 - root - INFO - Sync completed successfully in ROOT-ONLY mode
+2025-05-02 16:20:14 - root - INFO - Downloaded 0 files from the root directory
+2025-05-02 16:20:14 - root - INFO - Sync completed successfully
+2025-05-02 16:20:14 - root - INFO - Program completed successfully
+2025-05-02 16:20:46 - root - INFO - ================================================================================
+2025-05-02 16:20:46 - root - INFO -                     OneDrive Sync Tool for Individual Users                     
+2025-05-02 16:20:46 - root - INFO - ================================================================================
+2025-05-02 16:20:46 - root - INFO - Python version: 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+2025-05-02 16:20:46 - root - INFO - Operating system: nt
+2025-05-02 16:20:46 - root - INFO - Log level: DEBUG
+2025-05-02 16:20:46 - root - INFO - Regular log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\sync.log
+2025-05-02 16:20:46 - root - INFO - Debug log file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\debug.log
+2025-05-02 16:20:46 - root - INFO - Initializing sync manager...
+2025-05-02 16:20:46 - root - INFO - Sync options: {'check_only': False, 'test_mode': False, 'max_files': None, 'target_folder': None, 'root_only': True, 'force_full_sync': False, 'force_save_state': False}
+2025-05-02 16:20:46 - root - INFO - Loaded sync state from: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:20:46 - root - INFO - Last sync: 2025-05-02T16:20:14.534315
+2025-05-02 16:20:46 - root - INFO - Found 17 files in state
+2025-05-02 16:20:46 - root - INFO - Running in root-only mode (only files not in any folder)
+2025-05-02 16:20:46 - root - INFO - Using state file: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:20:46 - root - INFO - State file exists. Size: 3998 bytes
+2025-05-02 16:20:46 - root - INFO - Starting one-time sync
+2025-05-02 16:20:46 - root - INFO - Starting sync process in ROOT-ONLY mode (only files not in any folder)...
+2025-05-02 16:20:46 - root - INFO - Listing all files in the root of OneDrive...
+2025-05-02 16:20:46 - root - INFO - Found account in cache, attempting to get token silently
+2025-05-02 16:20:46 - root - INFO - Successfully acquired token from cache
+2025-05-02 16:20:49 - root - INFO - Found 17 files and 4 folders in the root
+2025-05-02 16:20:49 - root - INFO - Files in the root:
+2025-05-02 16:20:49 - root - INFO -   1. Book.xlsx (unknown size)
+2025-05-02 16:20:49 - root - INFO -   2. Document 1.docx (0.05 MB)
+2025-05-02 16:20:49 - root - INFO -   3. Document 2.docx (0.01 MB)
+2025-05-02 16:20:49 - root - INFO -   4. Document 3.docx (0.01 MB)
+2025-05-02 16:20:49 - root - INFO -   5. Document 4.docx (0.01 MB)
+2025-05-02 16:20:49 - root - INFO -   6. Document.docx (unknown size)
+2025-05-02 16:20:49 - root - INFO -   7. Document_test.docx (0.01 MB)
+2025-05-02 16:20:49 - root - INFO -   8. Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:20:49 - root - INFO -   9. IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:20:49 - root - INFO -   10. Presentation 1.pptx (unknown size)
+2025-05-02 16:20:49 - root - INFO -   11. Presentation 2.pptx (unknown size)
+2025-05-02 16:20:49 - root - INFO -   12. Presentation 3.pptx (0.03 MB)
+2025-05-02 16:20:49 - root - INFO -   13. Presentation.pptx (unknown size)
+2025-05-02 16:20:49 - root - INFO -   14. projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:20:49 - root - INFO -   15. projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:20:49 - root - INFO -   16. projectSynopsis.doc (0.21 MB)
+2025-05-02 16:20:49 - root - INFO -   17. projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:20:50 - root - INFO - Found 17 files to process
+2025-05-02 16:20:50 - root - INFO - Processing item 1/17...
+2025-05-02 16:20:50 - root - INFO - Found root item: Book.xlsx (File)
+2025-05-02 16:20:50 - root - INFO - Root file details: Book.xlsx (unknown size)
+2025-05-02 16:20:50 - root - INFO - File is unchanged: Book.xlsx
+2025-05-02 16:20:50 - root - INFO - Skipping file (up-to-date): Book.xlsx
+2025-05-02 16:20:50 - root - INFO - Found root item: Document 1.docx (File)
+2025-05-02 16:20:50 - root - INFO - Root file details: Document 1.docx (0.05 MB)
+2025-05-02 16:20:50 - root - INFO - File is unchanged: Document 1.docx
+2025-05-02 16:20:50 - root - INFO - Skipping file (up-to-date): Document 1.docx
+2025-05-02 16:20:50 - root - INFO - Found root item: Document 2.docx (File)
+2025-05-02 16:20:50 - root - INFO - Root file details: Document 2.docx (0.01 MB)
+2025-05-02 16:20:50 - root - INFO - File has been modified: Document 2.docx
+2025-05-02 16:20:50 - root - INFO - Downloading file: Document 2.docx (0.01 MB)
+2025-05-02 16:20:51 - root - INFO - Downloaded: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\downloads\Document 2.docx
+2025-05-02 16:20:51 - root - INFO - Found root item: Document 3.docx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Document 3.docx (0.01 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Document 3.docx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Document 3.docx
+2025-05-02 16:20:51 - root - INFO - Found root item: Document 4.docx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Document 4.docx (0.01 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Document 4.docx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Document 4.docx
+2025-05-02 16:20:51 - root - INFO - Found root item: Document.docx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Document.docx (unknown size)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Document.docx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Document.docx
+2025-05-02 16:20:51 - root - INFO - Found root item: Document_test.docx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Document_test.docx (0.01 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Document_test.docx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Document_test.docx
+2025-05-02 16:20:51 - root - INFO - Found root item: Getting started with OneDrive.pdf (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Getting started with OneDrive.pdf (0.98 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Getting started with OneDrive.pdf
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Getting started with OneDrive.pdf
+2025-05-02 16:20:51 - root - INFO - Found root item: IP Synopsis Format.docx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: IP Synopsis Format.docx (0.04 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: IP Synopsis Format.docx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): IP Synopsis Format.docx
+2025-05-02 16:20:51 - root - INFO - Found root item: Presentation 1.pptx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Presentation 1.pptx (unknown size)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Presentation 1.pptx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Presentation 1.pptx
+2025-05-02 16:20:51 - root - INFO - Processing item 11/17...
+2025-05-02 16:20:51 - root - INFO - Found root item: Presentation 2.pptx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Presentation 2.pptx (unknown size)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Presentation 2.pptx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Presentation 2.pptx
+2025-05-02 16:20:51 - root - INFO - Found root item: Presentation 3.pptx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Presentation 3.pptx (0.03 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Presentation 3.pptx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Presentation 3.pptx
+2025-05-02 16:20:51 - root - INFO - Found root item: Presentation.pptx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: Presentation.pptx (unknown size)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: Presentation.pptx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): Presentation.pptx
+2025-05-02 16:20:51 - root - INFO - Found root item: projectSynopsis 1.doc (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: projectSynopsis 1.doc (0.21 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: projectSynopsis 1.doc
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): projectSynopsis 1.doc
+2025-05-02 16:20:51 - root - INFO - Found root item: projectSynopsis 2.doc (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: projectSynopsis 2.doc (0.21 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: projectSynopsis 2.doc
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): projectSynopsis 2.doc
+2025-05-02 16:20:51 - root - INFO - Found root item: projectSynopsis.doc (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: projectSynopsis.doc (0.21 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: projectSynopsis.doc
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): projectSynopsis.doc
+2025-05-02 16:20:51 - root - INFO - Found root item: projectSynopsis.pptx (File)
+2025-05-02 16:20:51 - root - INFO - Root file details: projectSynopsis.pptx (0.21 MB)
+2025-05-02 16:20:51 - root - INFO - File is unchanged: projectSynopsis.pptx
+2025-05-02 16:20:51 - root - INFO - Skipping file (up-to-date): projectSynopsis.pptx
+2025-05-02 16:20:51 - root - INFO - Attempting to save sync state to: C:\Users\ASUS\Documents\augment-projects\SharePoint\OneDriveSub\onedrive_sync_state.json
+2025-05-02 16:20:51 - root - INFO - Successfully saved sync state. File size: 3998 bytes
+2025-05-02 16:20:51 - root - INFO - Sync completed successfully in ROOT-ONLY mode
+2025-05-02 16:20:51 - root - INFO - Downloaded 1 files from the root directory
+2025-05-02 16:20:51 - root - INFO - Sync completed successfully
+2025-05-02 16:20:51 - root - INFO - Program completed successfully

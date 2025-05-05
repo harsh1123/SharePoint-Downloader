@@ -1,0 +1,126 @@
+{
+  "files": {
+    "Book.xlsx": {
+      "id": "2F747E44C0546758!145265",
+      "name": "Book.xlsx",
+      "lastModifiedDateTime": "2021-10-25T15:46:28Z",
+      "size": 0,
+      "path": "Book.xlsx"
+    },
+    "Document 1.docx": {
+      "id": "2F747E44C0546758!3088",
+      "name": "Document 1.docx",
+      "lastModifiedDateTime": "2020-01-01T15:21:52Z",
+      "size": 51084,
+      "path": "Document 1.docx"
+    },
+    "Document 2.docx": {
+      "id": "2F747E44C0546758!145256",
+      "name": "Document 2.docx",
+      "lastModifiedDateTime": "2025-05-02T09:22:59Z",
+      "size": 12357,
+      "path": "Document 2.docx"
+    },
+    "Document 3.docx": {
+      "id": "2F747E44C0546758!146525",
+      "name": "Document 3.docx",
+      "lastModifiedDateTime": "2025-05-02T04:22:41Z",
+      "size": 10538,
+      "path": "Document 3.docx"
+    },
+    "Document 4.docx": {
+      "id": "2F747E44C0546758!146527",
+      "name": "Document 4.docx",
+      "lastModifiedDateTime": "2025-05-02T09:50:18Z",
+      "size": 10519,
+      "path": "Document 4.docx"
+    },
+    "Document.docx": {
+      "id": "2F747E44C0546758!3087",
+      "name": "Document.docx",
+      "lastModifiedDateTime": "2020-01-01T13:36:02Z",
+      "size": 0,
+      "path": "Document.docx"
+    },
+    "Document_test.docx": {
+      "id": "2F747E44C0546758!s0c4b56a5740a4a49a8f363c38a0da444",
+      "name": "Document_test.docx",
+      "lastModifiedDateTime": "2025-05-02T10:31:08Z",
+      "size": 10489,
+      "path": "Document_test.docx"
+    },
+    "Getting started with OneDrive.pdf": {
+      "id": "2F747E44C0546758!102",
+      "name": "Getting started with OneDrive.pdf",
+      "lastModifiedDateTime": "2018-07-25T13:52:55Z",
+      "size": 1025867,
+      "path": "Getting started with OneDrive.pdf"
+    },
+    "IP Synopsis Format.docx": {
+      "id": "2F747E44C0546758!145261",
+      "name": "IP Synopsis Format.docx",
+      "lastModifiedDateTime": "2021-05-19T08:18:56Z",
+      "size": 40524,
+      "path": "IP Synopsis Format.docx"
+    },
+    "Presentation 1.pptx": {
+      "id": "2F747E44C0546758!145122",
+      "name": "Presentation 1.pptx",
+      "lastModifiedDateTime": "2021-02-20T04:19:33Z",
+      "size": 0,
+      "path": "Presentation 1.pptx"
+    },
+    "Presentation 2.pptx": {
+      "id": "2F747E44C0546758!145123",
+      "name": "Presentation 2.pptx",
+      "lastModifiedDateTime": "2021-02-20T04:19:41Z",
+      "size": 0,
+      "path": "Presentation 2.pptx"
+    },
+    "Presentation 3.pptx": {
+      "id": "2F747E44C0546758!145124",
+      "name": "Presentation 3.pptx",
+      "lastModifiedDateTime": "2021-02-20T04:21:42Z",
+      "size": 28830,
+      "path": "Presentation 3.pptx"
+    },
+    "Presentation.pptx": {
+      "id": "2F747E44C0546758!145121",
+      "name": "Presentation.pptx",
+      "lastModifiedDateTime": "2021-02-20T04:19:31Z",
+      "size": 0,
+      "path": "Presentation.pptx"
+    },
+    "projectSynopsis 1.doc": {
+      "id": "2F747E44C0546758!145259",
+      "name": "projectSynopsis 1.doc",
+      "lastModifiedDateTime": "2021-05-19T08:06:08Z",
+      "size": 218839,
+      "path": "projectSynopsis 1.doc"
+    },
+    "projectSynopsis 2.doc": {
+      "id": "2F747E44C0546758!145260",
+      "name": "projectSynopsis 2.doc",
+      "lastModifiedDateTime": "2021-05-19T08:10:39Z",
+      "size": 218839,
+      "path": "projectSynopsis 2.doc"
+    },
+    "projectSynopsis.doc": {
+      "id": "2F747E44C0546758!145258",
+      "name": "projectSynopsis.doc",
+      "lastModifiedDateTime": "2021-05-19T08:04:32Z",
+      "size": 218839,
+      "path": "projectSynopsis.doc"
+    },
+    "projectSynopsis.pptx": {
+      "id": "2F747E44C0546758!145257",
+      "name": "projectSynopsis.pptx",
+      "lastModifiedDateTime": "2021-05-19T07:58:17Z",
+      "size": 218839,
+      "path": "projectSynopsis.pptx"
+    }
+  },
+  "last_sync": "2025-05-02T16:20:14.534315",
+  "version": "1.0",
+  "sync_type": "root_only"
+}
